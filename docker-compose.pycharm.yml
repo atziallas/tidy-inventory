@@ -1,0 +1,14 @@
+version: "3.7"
+services:
+  django:
+    build: ./django
+    image: tidy-django
+    tty: true
+#    entrypoint: ["./start.sh"]
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./django/src:/code
+    environment:
+      - DJANGO_CONFIGURATION=dev
+

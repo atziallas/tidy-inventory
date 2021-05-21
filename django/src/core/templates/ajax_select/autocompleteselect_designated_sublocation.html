@@ -1,0 +1,30 @@
+
+<span id="{{ html_id }}_wrapper">
+<input type="text" name="{{ name }}_text" id="{{ html_id }}_text" value="" autocomplete="off" {{ extra_attrs }} />
+    {% if add_link %}
+        <a href="{{ add_link }}" class="add-another addlink" id="add_{{ html_id }}"
+           onclick="return showAddAnotherPopup(this);"> add</a>
+    {% endif %}
+    <input type="hidden" name="{{ name }}" id="{{ html_id }}" value="{{ current_id }}"
+           data-ajax-select="autocompleteselect" data-plugin-options="{{ data_plugin_options }}"/>
+<div id="{{ html_id }}_on_deck" class="results_on_deck"><div>{{ current_repr|safe }}</div></div>
+    {% block extra_script %}
+        <script type="text/javascript">
+    var updateRelativeDesignatedLocation = function () {
+        var dataOptions = JSON.parse($("#id_designated_sublocation").attr("data-plugin-options"));
+        $("#id_designated_sublocation_text").autocomplete({
+            source: function (request, response) {
+                $.getJSON(dataOptions.source, {term: $('#id_designated_sublocation_text').val(), relative:$("#id_designated_location").val()}, response);
+            },
+            minLength: 1            
+        });
+    }
+    $(document).ready(function () {
+        updateRelativeDesignatedLocation();
+        $("#id_designated_location").change(updateRelativeDesignatedLocation);
+    });
+    </script>
+    {% endblock %}
+    {% block help %}{% if help_text %}<p class="help">{{ help_text }}</p>{% endif %}{% endblock %}
+</span>
+

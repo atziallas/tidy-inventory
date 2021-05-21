@@ -1,0 +1,132 @@
+@import "base";
+@import "popups";
+$enable-responsive-font-sizes: true;
+$grid-breakpoints: (
+        xs: 0,
+        sm: 675px,
+        md: 850px,
+        lg: 952px,
+        xl: 1350px
+);
+@import "node_modules/bootstrap/scss/functions";
+@import "node_modules/bootstrap/scss/variables";
+@import "node_modules/bootstrap/scss/mixins";
+@import "node_modules/bootstrap/scss/tables";
+@import "node_modules/bootstrap/scss/buttons";
+@import "node_modules/bootstrap/scss/input-group";
+@import "node_modules/bootstrap/scss/grid";
+@import "node_modules/bootstrap/scss/forms";
+@import "node_modules/bootstrap/scss/reboot";
+@import "node_modules/bootstrap/scss/utilities";
+@import "node_modules/bootstrap/scss/list-group";
+@import "node_modules/bootstrap/scss/mixins/_breakpoints";
+
+$gutter-denominator: 8;
+@media (max-width: map-get($grid-breakpoints, md)) {
+  .row {
+        margin-right: -$grid-gutter-width / $gutter-denominator;
+        margin-left: -$grid-gutter-width / $gutter-denominator;
+    }
+    .row > .col,
+    .row > [class*="col-"] {
+        padding-right: $grid-gutter-width / $gutter-denominator;
+        padding-left: $grid-gutter-width / $gutter-denominator;
+    }
+}
+
+
+@include media-breakpoint-down(md) {
+  .responsiveSidebar.active {
+    right: 0;
+    border-left: 2px solid #3a3a3a;
+    padding: 25px;
+    position: fixed;
+    overflow: auto;
+    top: 0;
+    height: 100%;
+  }
+
+  .responsiveSidebar {
+    position: fixed;
+    background: white;
+    top: 100px;
+    right: -500px;
+    z-index: 1000;
+    width: auto;
+    transition: right 0.31s;
+  }
+
+  .active .sidebarButton {
+    top: 30px;
+    right: 18px;
+    position: static;
+    text-align: center;
+    padding: 13px 0 13px 0;
+    border-radius: 8px;
+    width: auto;
+    height: auto;
+  }
+
+  .sidebarButton {
+    position: fixed;
+    bottom: 37px;
+    right: 39px;
+    border-radius: 50%;
+    box-shadow: 2px 3px 9px 1px rgba(189, 189, 189, 0.81);
+    background-color: $yellow;
+    z-index: 500;
+    padding: 19px;
+    cursor: pointer;
+    font-size: 0.86em;
+    width: 109px;
+    height: 109px;
+    text-align: center;
+    transition: all 0.75s;
+
+
+  }
+
+  .sidebarButton img {
+    display: block;
+    width: 43px;
+    margin: 0 auto;
+  }
+
+  .active .sidebarButton img {
+    display: inline;
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    margin-right: 7px;
+  }
+
+  .active .sidebarButton div {
+    display: inline;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .responsiveSidebar.active {
+    border-left: 0;
+    position: static;
+  }
+
+  .responsiveSidebar {
+    position: static;
+    border-left: 0;
+  }
+
+  .sidebarButton {
+    display: none;
+  }
+}
+
+@include media-breakpoint-up(lg) {
+  .limit-width-button {
+    max-width: 303px;
+  }
+}
+
+.sortable-header {
+  @extend .text-uppercase;
+}
+

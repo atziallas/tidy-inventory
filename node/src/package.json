@@ -1,0 +1,96 @@
+{
+  "name": "js",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "//": [
+      "react-select^2.4.2"
+    ],
+    "@babel/runtime": "^7.5.5",
+    "@hot-loader/react-dom": "^16.8.6",
+    "bootstrap": "^4.3.1",
+    "prop-types": "^15.7.2",
+    "quagga": "0.12.1",
+    "react": "^16.8.6",
+    "react-autosuggest": "^9.4.3",
+    "react-dom": "^16.3.3",
+    "react-draggable": "^3.3.0",
+    "react-icons": "^4.2.0",
+    "react-redux": "^5.0.6",
+    "react-select": "^3.0.0",
+    "reduce-reducers": "^1.0.4",
+    "redux": "^3.7.2",
+    "redux-saga": "^1.0.2",
+    "redux-thunk": "^2.2.0",
+    "regenerator-transform": "^0.14.0",
+    "whatwg-fetch": "^3.0.0"
+  },
+  "devDependencies": {
+    "//": [
+      "@babel/plugin-transform-regenerator^7.4.5",
+      "@babel/plugin-transform-runtime^7.5.5",
+      "babel-plugin-redux-saga^1.1.2"
+    ],
+    "@babel/core": "^7.6.4",
+    "@babel/plugin-transform-runtime": "^7.5.5",
+    "@babel/preset-env": "^7.6.3",
+    "@babel/preset-react": "^7.6.4",
+    "autoprefixer": "^9.5.0",
+    "babel-loader": "^8.0.5",
+    "babel-polyfill": "^6.26.0",
+    "css-loader": "^2.1.1",
+    "eslint": "^5.16.0",
+    "eslint-plugin-react": "^7.13.0",
+    "file-loader": "^1.1.6",
+    "jest": "^24.8.0",
+    "jquery": "^3.3.1",
+    "mini-css-extract-plugin": "^0.6.0",
+    "node-sass": "^4.4.2",
+    "optimize-css-assets-webpack-plugin": "^5.0.1",
+    "popper": "^1.0.1",
+    "popper.js": "^1.14.7",
+    "postcss-loader": "^3.0.0",
+    "precss": "^4.0.0",
+    "react-hot-loader": "^4.12.19",
+    "redux-devtools": "^3.4.1",
+    "redux-devtools-extension": "^2.13.8",
+    "sass-loader": "^7.1.0",
+    "style-loader": "^0.23.1",
+    "terser-webpack-plugin": "^1.2.3",
+    "url-loader": "^0.6.2",
+    "webpack": "^4.42.1",
+    "webpack-bundle-analyzer": "^3.6.0",
+    "webpack-bundle-tracker": "^0.4.3",
+    "webpack-cli": "^3.3.11",
+    "webpack-dev-server": "^3.10.3",
+    "webpack-merge": "^4.2.2"
+  },
+  "jest": {
+    "modulePaths": [
+      "/shared/vendor/modules"
+    ],
+    "moduleFileExtensions": [
+      "js",
+      "jsx"
+    ],
+    "moduleDirectories": [
+      "node_modules",
+      "bower_components",
+      "shared"
+    ],
+    "moduleNameMapper": {
+      "\\.(scss|css|less)$": "identity-obj-proxy",
+      "\\.(gif|ttf|eot|svg)$": "<rootDir>/__mocks__/fileMock.js"
+    }
+  },
+  "scripts": {
+    "test": "jest",
+    "build": "webpack --config webpack.prod.js",
+    "debug": "webpack-dev-server --open --config webpack.dev.js",
+    "dev": "webpack --config webpack.dev.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

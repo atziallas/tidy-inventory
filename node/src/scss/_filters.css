@@ -1,0 +1,24 @@
+.filterHeader {
+    font-size: 1.3em;
+    font-weight: 500;
+}
+
+.filter {
+    list-style: none;
+    font-size: .91em;
+    padding: 0px 0px 0px 0px;
+    margin: 0px 0px 15px 1px;
+}
+
+.filter li {
+    color: #737373;
+    cursor: pointer;
+}
+
+.filter li:hover {
+    color: black;
+}
+
+.filter li.active {
+    color: rgb(42, 181, 55);
+}
