@@ -251,7 +251,10 @@ class ImageWriter(BaseWriter):
         self._draw.text(pos, self.text, font=font, fill=self.foreground)
 
     def _finish(self):
-        return self._image
+        img_byte_arr = io.BytesIO()
+        self._image.save(img_byte_arr, format='PNG')
+        img_byte_arr = img_byte_arr.getvalue()
+        return img_byte_arr
 
     def save(self, filename, output):
         filename = '{0}.{1}'.format(filename, self.format.lower())
