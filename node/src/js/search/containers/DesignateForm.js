@@ -4,8 +4,8 @@ import DesignatedSublocationSelect from "../../common/containers/DesignatedSublo
 import {connect} from "react-redux";
 import {designate} from "../../common/actions/actions";
 
-const DesignateForm = ({designate}) => {
-    return (
+const DesignateForm = ({designate}) =>
+    (
         <Fragment>
             <div className="col-12 col-sm-5 col-md-4 col-xl-3">
                 <div>
@@ -24,7 +24,8 @@ const DesignateForm = ({designate}) => {
             </div>
         </Fragment>
     )
-}
+
+
 
 const mapStateToProps = (state) => ({})
 

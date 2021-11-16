@@ -15,7 +15,7 @@ services:
     build: ./node
     image: tidy-node
     tty: true
-    command: ["npm", "run", "debug"]
+    command: [ "npm", "run", "debug" ]
     ports:
       - "8888:8888"
       - "9101:9101"
@@ -23,12 +23,11 @@ services:
     volumes:
       - ./node/src:/code/
       - node_modules:/code/node_modules
-
   django:
     build: ./django
     image: tidy-django
     tty: true
-    entrypoint: ["./start.sh"]
+    entrypoint: [ "./start.sh" ]
     ports:
       - "8000:8000"
     volumes:

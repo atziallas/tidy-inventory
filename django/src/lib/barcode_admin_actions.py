@@ -15,7 +15,7 @@ def generate_barcode(modeladmin, request, queryset):
         if thing.barcode is None:
             thing.barcode = generate_ean13(get_next_value(SEQUENCE_NAME))
             thing.save()
-    modeladmin.message_user(request, "Objects tagged as not labeled")
+    modeladmin.message_user(request, "Barcodes generated. Objects tagged as not labeled yet.")
 
 
 def unlabel(modeladmin, request, queryset):
