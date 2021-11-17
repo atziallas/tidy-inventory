@@ -15,7 +15,7 @@ DATABASES = {
         'NAME': 'tidy',
         'USER': 'tidy',
         'PASSWORD': 'tidypass',
-        'HOST': 'db',
+        'HOST': os.environ.get('DB_HOST'),
         'PORT': '5432'
     }
 }

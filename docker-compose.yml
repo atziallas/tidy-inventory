@@ -34,6 +34,7 @@ services:
       - ./django/src:/code
     environment:
       - DJANGO_CONFIGURATION=dev
+      - DB_HOST=db
     depends_on:
       - db
 
