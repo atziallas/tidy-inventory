@@ -38,7 +38,7 @@ const App = () => {
                     <div className="col-md-12 col-lg-10">
                         <Results/>
                     </div>
-                    <div className={"col-lg-2 responsiveSidebar " + (sidebarVisible ? "active" : "")}>
+                    <div className={"col-lg-2 responsiveSidebar " + (sidebarVisible && "active")}>
                         <div className="sidebarButton" onClick={() => setSidebarVisible(!sidebarVisible)}>
                             <HiArrowCircleLeft size={45} style={{ fill: '#4c4c4c' }}/>
                             {/*<img src={arrow} alt="sidebar"/>*/}

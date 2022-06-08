@@ -4,4 +4,3 @@ RUN mkdir /code
 WORKDIR /code
 COPY ./src .
 RUN npm install
-

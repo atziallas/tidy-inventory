@@ -20,8 +20,6 @@ module.exports = (env, argv) => ({
         ],
     },
     entry: {
-        // search: './js/search/index.js',
-        // transit: './js/transit/index.js'
         search: path.resolve(__dirname,'./js/search/index.js'),
         transit: path.resolve(__dirname,'./js/transit/index.js')
     },
