@@ -1186,10 +1186,6 @@ COPY public.core_subtype (id, name, type_id) FROM stdin;
 25	Extension	23
 26	Plastic Bag	16
 27	Audio Amp Tubes	29
-28	TS to angled TS	1
-29	HDMI	5
-30	Display Port to Display Port	5
-31	Type C to DisplayPort(1.4)	5
 \.
 
 
@@ -1211,10 +1207,6 @@ COPY public.core_subtype_default_tags (id, subtype_id, tagtype_id) FROM stdin;
 12	19	1
 13	20	1
 14	25	1
-15	28	1
-16	29	1
-17	30	1
-18	31	1
 \.
 
 
@@ -1237,8 +1229,6 @@ COPY public.core_tag (id, value, "tagType_id") FROM stdin;
 12	5	1
 13	3	1
 14	2.5	1
-15	15	1
-16	1.8	1
 \.
 
 
@@ -1275,10 +1265,12 @@ c6b7f042-080c-4903-95bc-f8b4276d1393	Proel XLR Cable (5m)	5	1	3	1	2000000000046	
 e0030d6b-0bfd-4a89-811e-6694f0aef7de	Plastic Bags	5	26	5	16		f	\N	\N
 03ba330a-aeac-44ea-b1d1-8eb737d68bf0	Proel Midi Cable (4m)	26	\N	\N	12	2000000000282	t	5	3
 3f8422a8-e502-4023-922b-a8c3a2084cc5	Apple Headphones (old)	2	14	2	11	\N	f	\N	\N
+28498857-23f3-492d-a283-76b1b5a8fd61	VGA Cable (0.5m)	\N	12	\N	5	2000000000260	f	\N	\N
 d5c00ffe-2ba4-421d-b984-239b1da9a70d	PSU Cable (2.5m)	\N	2	\N	2	2000000000237	t	\N	\N
 220cfb5c-c08f-4d27-864f-e4964dd58209	PSU Cable (2m)	\N	2	\N	2	2000000000213	t	\N	\N
 3b546106-29dc-4493-a119-d7d585a47706	Double PSU Cable (2m)	\N	2	\N	2	2000000000220	t	\N	\N
 017a4fd5-53c1-485a-bdb3-5c7b60d74ccf	sssnake midi cable (4m)	5	\N	3	12	2000000000299	t	5	3
+43b3a7af-4cff-4a83-a592-26681d44ac93	Prof low noise inst cable (2m TS)	27	6	\N	1	2000000000192	f	5	3
 05944d2a-0ce3-441b-8b82-f6ffcf07e1d1	Northpole headlight lead	\N	21	\N	16	7071875007686	t	\N	\N
 dc0229a2-3e27-443a-a82d-ddc2a23cd1d4	USB type B cable	2	9	\N	6	2000000000314	t	5	5
 51e2b769-9858-4c86-be65-f2bd3d6520a6	Locks	5	\N	4	25	\N	f	5	4
@@ -1292,6 +1284,9 @@ c4402dc7-0f92-4dba-9415-b5fc3ed45665	Joby flexible tripod	2	17	\N	15	\N	f	\N	\N
 3232384c-3616-4850-86cc-5c84d2c7165d	3 port electric socket (no ground)	\N	24	\N	23		f	\N	\N
 3527851f-6260-489d-aa6e-34fd02d1eab9	3 meter electric socket extension (no ground)	\N	25	\N	23		f	\N	\N
 b08b1d6b-a58b-4f1d-a563-03043be48f60	UTP Cable (5m)	2	\N	2	8	\N	f	\N	\N
+acc56f6f-47ce-45d5-9b1f-fc6d17a847b0	DVI Cable	2	7	2	5	2000000000253	f	\N	\N
+e410753b-e798-46c5-a11b-28cdc1e27977	OEM TS Neutrik (2m)	27	6	\N	1	2000000000109	f	5	3
+587836e2-7655-4240-969c-907eccacf2b4	Sennheiser Minijack TRS cable	5	13	3	1	2000000000178	f	5	3
 f4719fee-f102-4ef4-a262-c79c9896b211	Nintento DMG-04	5	\N	4	27	\N	f	\N	\N
 ba8ac1ce-fca8-4405-889a-1866113ebedb	Αλμανάκο, Ντόναλτ, Μίκυ Μυστήριο, Κλασικά, Το βιβλίο των εξερευνητών	25	\N	10	28	\N	f	\N	\N
 e9e808a2-4f81-4d94-beda-07be2e5149d6	USB type B cable (2m yellow)	5	9	3	6	2000000000406	t	5	5
@@ -1329,32 +1324,7 @@ f7fa764f-99e1-48f5-9d26-964e7c983220	Fender TS Cable	5	6	3	1	2000000000084	t	5	3
 1ed86a10-9574-4e47-a3fe-0071b6e6cbb7	Ysis Naterial extra screws and poles (Club 3d)	5	\N	4	16	\N	f	5	4
 7dd264cb-604f-4242-bed3-14dd665b13b1	Custom Audio Amp Tubes	5	27	4	29	\N	f	5	4
 212b7ab2-aa2e-4dd0-b64f-e7152535c7ec	LED Magic Ball	28	\N	11	17	\N	f	28	11
-acc56f6f-47ce-45d5-9b1f-fc6d17a847b0	DVI Cable	2	7	2	5	2000000000253	t	\N	\N
-e410753b-e798-46c5-a11b-28cdc1e27977	OEM TS Neutrik (2m)	27	6	\N	1	2000000000109	t	5	3
-587836e2-7655-4240-969c-907eccacf2b4	Sennheiser Minijack TRS cable	5	13	3	1	2000000000178	t	5	3
 5eef6a74-3a74-4883-85d3-3ed809c3c801	Ysis Naterial screen	25	\N	\N	30	\N	f	25	\N
-26dcc1b9-fcfa-4b59-addc-519cb860c507	PSU Cable (1.5m)	\N	2	\N	2	2000000000619	t	\N	\N
-8305502d-6824-43bc-bb3a-c22f06bb4c92	PSU Cable (1.5m)	\N	2	\N	2	2000000000626	t	\N	\N
-1c424dcc-75d7-4c26-a1c0-cbc0d8c46fdf	DIsplay port cable (2m)	\N	30	\N	5	2000000000633	t	\N	\N
-487a9978-27d5-4bc1-8ad1-d515a9a84708	Type C to DisplayPort cable (1.8m)	\N	31	\N	5	2000000000640	t	\N	\N
-7bdfe976-9b17-4f51-a0a2-b0954ae1bd12	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000657	t	\N	\N
-e43beb99-6e20-4f8b-93a7-32c15ef45ea7	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000664	t	\N	\N
-e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	HDMI Cable (1440p - 144hz - 2m)	\N	29	\N	5	2000000000671	t	\N	\N
-fa8aa674-93a0-4400-9f04-f58908ca2213	Fender California Cable Red (3m)	\N	6	\N	1	2000000000688	t	\N	\N
-43b3a7af-4cff-4a83-a592-26681d44ac93	Prof low noise inst cable (2m TS)	27	6	\N	1	2000000000192	t	5	3
-28498857-23f3-492d-a283-76b1b5a8fd61	VGA Cable (0.5m)	\N	12	\N	5	2000000000260	t	\N	\N
-6091910d-33be-451e-9a73-46e523f28c63	Cordial XLR cable (15m)	\N	1	\N	1	2000000000497	t	\N	\N
-ddea3c4f-b07a-499e-8854-806283608548	Cordial XLR cable (15m)	\N	1	\N	1	2000000000503	t	\N	\N
-5ae0ae41-9e3f-40aa-87ba-39ac1a94eb4d	Cordial XLR cable (15m)	\N	1	\N	1	2000000000510	t	\N	\N
-db97470b-0012-4ef6-8bb5-829bfbda8e1e	SC The stage cable (15m)	\N	5	\N	1	2000000000527	t	\N	\N
-7c4d5c6b-af99-4379-802c-e841b07ac019	SC The stage cable (15m)	\N	5	\N	1	2000000000534	t	\N	\N
-217e4015-792c-4d96-9bba-d8ff279abc35	SC The Spirit cable (15m)	\N	28	\N	1	2000000000541	t	\N	\N
-4cf1b8b9-a9e9-4257-acb9-f021acc05b67	HDMI Cable (2m)	\N	29	\N	5	2000000000558	t	\N	\N
-a3124db2-9cc1-47c3-a654-bc00c5619f3b	HDMI Cable (1m)	\N	29	\N	5	2000000000565	t	\N	\N
-10ade344-0c51-4ff7-acaf-9a375ae182d5	PSU Cable (2m)	\N	2	\N	2	2000000000572	t	\N	\N
-59b8a868-08eb-4d4d-a71e-a1077e50fc50	PSU Cable (1.5m)	\N	2	\N	2	2000000000589	t	\N	\N
-f5e9939e-91d1-42a2-ad88-1ede57f2b053	PSU Cable (grey - 2m)	\N	2	\N	2	2000000000596	t	\N	\N
-0d6c3c35-02ec-4cb1-9251-83c88f6245f8	PSU Cable (2m)	\N	2	\N	2	2000000000602	t	\N	\N
 \.
 
 
@@ -1404,26 +1374,6 @@ COPY public.core_thing_tags (id, thing_id, tag_id) FROM stdin;
 57	d5c00ffe-2ba4-421d-b984-239b1da9a70d	14
 58	81759e2f-266e-4339-a769-21f16531d6a6	14
 59	3527851f-6260-489d-aa6e-34fd02d1eab9	4
-60	6091910d-33be-451e-9a73-46e523f28c63	15
-61	ddea3c4f-b07a-499e-8854-806283608548	15
-62	5ae0ae41-9e3f-40aa-87ba-39ac1a94eb4d	15
-63	db97470b-0012-4ef6-8bb5-829bfbda8e1e	15
-64	7c4d5c6b-af99-4379-802c-e841b07ac019	15
-65	217e4015-792c-4d96-9bba-d8ff279abc35	15
-66	4cf1b8b9-a9e9-4257-acb9-f021acc05b67	4
-67	a3124db2-9cc1-47c3-a654-bc00c5619f3b	8
-68	10ade344-0c51-4ff7-acaf-9a375ae182d5	4
-69	59b8a868-08eb-4d4d-a71e-a1077e50fc50	9
-70	f5e9939e-91d1-42a2-ad88-1ede57f2b053	4
-71	0d6c3c35-02ec-4cb1-9251-83c88f6245f8	4
-72	26dcc1b9-fcfa-4b59-addc-519cb860c507	9
-73	8305502d-6824-43bc-bb3a-c22f06bb4c92	9
-74	1c424dcc-75d7-4c26-a1c0-cbc0d8c46fdf	4
-75	487a9978-27d5-4bc1-8ad1-d515a9a84708	16
-76	7bdfe976-9b17-4f51-a0a2-b0954ae1bd12	4
-77	e43beb99-6e20-4f8b-93a7-32c15ef45ea7	4
-78	e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	4
-79	fa8aa674-93a0-4400-9f04-f58908ca2213	13
 \.
 
 
@@ -1774,32 +1724,6 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 290	2021-06-04 15:32:12.574799+00	5eef6a74-3a74-4883-85d3-3ed809c3c801	Ysis Naterial screen	1	[{"added": {}}]	9	1
 291	2021-06-04 22:22:18.886649+00	29	Sofa left	1	[{"added": {}}]	2	1
 292	2021-06-04 22:22:30.203203+00	30	Sofa right	1	[{"added": {}}]	2	1
-293	2021-06-04 22:34:45.470189+00	15	Length:15 m	1	[{"added": {}}]	7	1
-294	2021-06-04 22:35:03.066198+00	6091910d-33be-451e-9a73-46e523f28c63	Cordial XLR cable (15m)	1	[{"added": {}}]	9	1
-295	2021-06-04 22:35:16.777723+00	ddea3c4f-b07a-499e-8854-806283608548	Cordial XLR cable (15m)	1	[{"added": {}}]	9	1
-296	2021-06-04 22:35:27.831968+00	5ae0ae41-9e3f-40aa-87ba-39ac1a94eb4d	Cordial XLR cable (15m)	1	[{"added": {}}]	9	1
-297	2021-06-04 22:38:06.660746+00	db97470b-0012-4ef6-8bb5-829bfbda8e1e	SC The stage cable (15m)	1	[{"added": {}}]	9	1
-298	2021-06-04 22:38:22.515152+00	7c4d5c6b-af99-4379-802c-e841b07ac019	SC The stage cable (15m)	1	[{"added": {}}]	9	1
-299	2021-06-04 22:39:26.434772+00	28	TS to angled TS	1	[{"added": {}}]	6	1
-300	2021-06-04 22:39:33.749298+00	217e4015-792c-4d96-9bba-d8ff279abc35	SC The Spirit cable (15m)	1	[{"added": {}}]	9	1
-301	2021-06-04 22:47:25.746668+00	29	HDMI	1	[{"added": {}}]	6	1
-302	2021-06-04 22:48:03.881513+00	4cf1b8b9-a9e9-4257-acb9-f021acc05b67	HDMI Cable (2m)	1	[{"added": {}}]	9	1
-303	2021-06-04 22:48:51.06465+00	a3124db2-9cc1-47c3-a654-bc00c5619f3b	HDMI Cable (1m)	1	[{"added": {}}]	9	1
-304	2021-06-04 22:50:14.418304+00	10ade344-0c51-4ff7-acaf-9a375ae182d5	PSU Cable (2m)	1	[{"added": {}}]	9	1
-305	2021-06-04 22:51:37.406118+00	59b8a868-08eb-4d4d-a71e-a1077e50fc50	PSU Cable (1.5m)	1	[{"added": {}}]	9	1
-306	2021-06-04 22:52:52.804134+00	f5e9939e-91d1-42a2-ad88-1ede57f2b053	PSU Cable (grey - 2m)	1	[{"added": {}}]	9	1
-307	2021-06-04 22:53:25.722833+00	0d6c3c35-02ec-4cb1-9251-83c88f6245f8	PSU Cable (2m)	1	[{"added": {}}]	9	1
-308	2021-06-04 22:54:18.128597+00	26dcc1b9-fcfa-4b59-addc-519cb860c507	PSU Cable (1.5m)	1	[{"added": {}}]	9	1
-309	2021-06-04 22:56:13.937174+00	8305502d-6824-43bc-bb3a-c22f06bb4c92	PSU Cable (1.5m)	1	[{"added": {}}]	9	1
-310	2021-06-04 22:57:22.072458+00	30	Display Port to Display Port	1	[{"added": {}}]	6	1
-311	2021-06-04 22:57:38.751214+00	1c424dcc-75d7-4c26-a1c0-cbc0d8c46fdf	DIsplay port cable (2m)	1	[{"added": {}}]	9	1
-312	2021-06-04 22:59:25.48504+00	31	Type C to DisplayPort(1.4)	1	[{"added": {}}]	6	1
-313	2021-06-04 22:59:37.278261+00	16	Length:1.8 m	1	[{"added": {}}]	7	1
-314	2021-06-04 22:59:40.878698+00	487a9978-27d5-4bc1-8ad1-d515a9a84708	Type C to DisplayPort cable (1.8m)	1	[{"added": {}}]	9	1
-315	2021-06-04 23:01:24.49019+00	7bdfe976-9b17-4f51-a0a2-b0954ae1bd12	Proel XLR to TRS (2m)	1	[{"added": {}}]	9	1
-316	2021-06-04 23:01:32.771488+00	e43beb99-6e20-4f8b-93a7-32c15ef45ea7	Proel XLR to TRS (2m)	1	[{"added": {}}]	9	1
-317	2021-06-04 23:03:46.127885+00	e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	HDMI Cable (1440p - 144hz - 2m)	1	[{"added": {}}]	9	1
-318	2021-06-04 23:10:57.929111+00	fa8aa674-93a0-4400-9f04-f58908ca2213	Fender California Cable Red (3m)	1	[{"added": {}}]	9	1
 \.
 
 
@@ -1904,7 +1828,7 @@ ccyg1gidqs79ori1le164f2k71wzffxj	ZmE0MWUwOWY5NzRmOTRkYTdhNzcyYjU1OGRkZGIwYzNjODB
 --
 
 COPY public.sequences_sequence (name, last) FROM stdin;
-tidy	68
+tidy	48
 \.
 
 
@@ -1989,21 +1913,21 @@ SELECT pg_catalog.setval('public.core_sublocation_id_seq', 11, true);
 -- Name: core_subtype_default_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.core_subtype_default_tags_id_seq', 18, true);
+SELECT pg_catalog.setval('public.core_subtype_default_tags_id_seq', 14, true);
 
 
 --
 -- Name: core_subtype_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.core_subtype_id_seq', 31, true);
+SELECT pg_catalog.setval('public.core_subtype_id_seq', 27, true);
 
 
 --
 -- Name: core_tag_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.core_tag_id_seq', 16, true);
+SELECT pg_catalog.setval('public.core_tag_id_seq', 14, true);
 
 
 --
@@ -2017,7 +1941,7 @@ SELECT pg_catalog.setval('public.core_tagtype_id_seq', 1, true);
 -- Name: core_thing_tags_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.core_thing_tags_id_seq', 79, true);
+SELECT pg_catalog.setval('public.core_thing_tags_id_seq', 59, true);
 
 
 --
@@ -2038,7 +1962,7 @@ SELECT pg_catalog.setval('public.core_type_id_seq', 30, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 318, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 292, true);
 
 
 --
