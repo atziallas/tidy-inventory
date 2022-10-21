@@ -5,7 +5,7 @@ from django.contrib import admin
 from django.contrib import messages
 from django.db.models import Case, When, Value, FloatField
 from django.db.models.functions import Cast
-from django_admin_multiple_choice_list_filter.list_filters import MultipleChoiceListFilter
+# from django_admin_multiple_choice_list_filter.list_filters import MultipleChoiceListFilter
 
 from lib.barcode_admin_actions import generate_barcode, print_barcode, unlabel
 from lib.custom import MultipleRelatedOnlyFieldListFilter
@@ -46,21 +46,29 @@ class LocationAdmin(admin.ModelAdmin):
 
     actions = [delete]
 
-class TypeListFilter(MultipleChoiceListFilter):
+class TypeListFilter(admin.SimpleListFilter):
+    pass
     title = 'type'
     parameter_name = 'type__in'
 
     def lookups(self, request, model_admin):
         return [(obj.id, obj) for obj in Type.objects.all()]
+        # return Type.objects.all()
 
+    def queryset(self, request, queryset):
+        return queryset
 
-class SubTypeListFilter(MultipleChoiceListFilter):
+class SubTypeListFilter(admin.SimpleListFilter):
+    pass
     title = 'subType'
     parameter_name = 'subType__in'
 
     def lookups(self, request, model_admin):
+        # return SubType.objects.all()
         return [(obj.id, obj) for obj in SubType.objects.all()]
 
+    def queryset(self, request, queryset):
+        return queryset
 
 # class MultipleListFilter(RelatedOnlyFieldListFilter):
 

@@ -11,7 +11,7 @@ from django.template.defaultfilters import force_escape
 from django.template.loader import render_to_string
 from django.utils.encoding import force_text
 from django.utils.safestring import mark_safe
-from django.utils.six import text_type
+from six import text_type
 from django.utils.translation import ugettext as _
 from django.utils.module_loading import import_string
 

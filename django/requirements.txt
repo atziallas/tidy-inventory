@@ -1,9 +1,9 @@
-Django==2.2.4
-django-admin-multiple-choice-list-filter==0.1.1
-django-extensions==2.2.1
-django-sequences==2.2
-django-smart-selects==1.5.4
-django-werkzeug==1.0.0
+Django==3.2.16
+# django-admin-multiple-choice-list-filter==0.1.1
+django-extensions==3.2.1
+django-sequences==2.7
+django-smart-selects==1.6.0
+# django-werkzeug==1.0.0
 lxml==4.3.1
 python-barcode==0.9.0
 python-docx==0.8.10
@@ -12,3 +12,4 @@ pytz==2018.5
 six==1.11.0
 sqlparse==0.3.0
 Werkzeug==0.14.1
+debugpy==1.5.1

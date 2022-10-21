@@ -23,10 +23,9 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 INSTALLED_APPS = [
     'smart_selects',
-    'django_werkzeug',
+    # 'django_werkzeug',
     'ajax_select',
     'sequences.apps.SequencesConfig',
-    'django_admin_multiple_choice_list_filter',
     'core.apps.CoreConfig',
     'django.contrib.admin',
     'django.contrib.auth',

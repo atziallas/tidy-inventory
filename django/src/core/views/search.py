@@ -32,9 +32,8 @@ class ThingAdmin(ModelAdmin):
     search_fields = ('name', 'id')
 
     def get_queryset(self, request):
-        return Thing.objects.annotate(length=Case(
-            When(tags__tagType__name__exact='Length', then=Cast('tags__value', FloatField())),
-            default=Value(0)
+        return Thing.objects.annotate(length=Case(When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field = FloatField())),
+            default=Value(0.0)
         ))
 
     def fetched_length(self, obj):
