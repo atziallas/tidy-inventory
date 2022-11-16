@@ -1,5 +1,5 @@
 
-from ajax_select.fields import AutoCompleteSelectField
+# from ajax_select.fields import AutoCompleteSelectField
 from django import forms
 from django.contrib import admin
 from django.contrib import messages
@@ -89,20 +89,20 @@ class ThingAdmin(admin.ModelAdmin):
 
     def get_queryset(self, request):
         return Thing.objects.annotate(length=Case(
-            When(tags__tagType__name__exact='Length', then=Cast('tags__value', FloatField())),
+            When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field=FloatField())),
             default=Value(0)
         ))
 
 
     actions = [generate_barcode, print_barcode, unlabel]
 
-    def get_form(self, request, obj=None, **kwargs):
-        form = super().get_form(request, obj, **kwargs)
-        form.base_fields['location'] = AutoCompleteSelectField('location', required=False)
-        form.base_fields['sublocation'] = AutoCompleteSelectField('sublocation', required=False)
-        form.base_fields['designated_location'] = AutoCompleteSelectField('designated_location', required=False)
-        form.base_fields['designated_sublocation'] = AutoCompleteSelectField('designated_sublocation', required=False)
-        return form
+    # def get_form(self, request, obj=None, **kwargs):
+    #     form = super().get_form(request, obj, **kwargs)
+    #     form.base_fields['location'] = AutoCompleteSelectField('location', required=False)
+    #     form.base_fields['sublocation'] = AutoCompleteSelectField('sublocation', required=False)
+    #     form.base_fields['designated_location'] = AutoCompleteSelectField('designated_location', required=False)
+    #     form.base_fields['designated_sublocation'] = AutoCompleteSelectField('designated_sublocation', required=False)
+    #     return form
 
     print_barcode.short_description = 'Print Barcode'
     generate_barcode.short_description = 'Generate Barcode'

@@ -1,6 +1,6 @@
 import os
 import sys
-sys.path.append('/lib/django-ajax-selects')
+# sys.path.append('/lib/django-ajax-selects')
 
 SEQUENCE_NAME="tidy"
 
@@ -22,9 +22,10 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Application definition
 
 INSTALLED_APPS = [
-    'smart_selects',
+    # 'smart_selects',
+    'django_extensions',
     # 'django_werkzeug',
-    'ajax_select',
+    # 'ajax_select',
     'sequences.apps.SequencesConfig',
     'core.apps.CoreConfig',
     'django.contrib.admin',
@@ -95,13 +96,14 @@ AUTH_PASSWORD_VALIDATORS = [
 
 LANGUAGE_CODE = 'en-us'
 
-TIME_ZONE = 'UTC'
 
 USE_I18N = True
 
 USE_L10N = True
 
 USE_TZ = True
+
+TIME_ZONE = 'Europe/Athens'
 
 
 # Static files (CSS, JavaScript, Images)

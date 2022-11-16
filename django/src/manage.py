@@ -11,7 +11,7 @@ if __name__ == "__main__":
     if settings.DEBUG:
         if os.environ.get('RUN_MAIN') or os.environ.get('WERKZEUG_RUN_MAIN'):
             import debugpy
-            debugpy.listen(("0.0.0.0", 3000))
+            debugpy.listen(("0.0.0.0", 5678))
             print('Attached!')
 
     try:
