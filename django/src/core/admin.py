@@ -88,10 +88,7 @@ class ThingAdmin(admin.ModelAdmin):
     fetched_length.short_description = 'Length'
 
     def get_queryset(self, request):
-        return Thing.objects.annotate(length=Case(
-            When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field=FloatField())),
-            default=Value(0)
-        ))
+        return Thing.objects.annotate(length=Case(When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field=FloatField())), default=Value(0.0)))
 
 
     actions = [generate_barcode, print_barcode, unlabel]
@@ -125,3 +122,11 @@ admin.site.register(Sublocation)
 admin.site.register(House)
 admin.site.register(Owner)
 admin.site.register(Plane)
+
+
+
+
+
+
+
+
