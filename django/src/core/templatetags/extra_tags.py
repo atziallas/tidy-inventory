@@ -6,7 +6,7 @@ from tidy import settings
 register = template.Library()
 
 @register.simple_tag
-def script(script_name):
+def static_or_webpack_dev(script_name):
     if (settings.DEBUG):
         return f"{settings.WEBPACK_DEV_HOST}{script_name}"
     else:

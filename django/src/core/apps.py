@@ -7,7 +7,7 @@ class CoreConfig(AppConfig):
 
     def ready(self):
         try:
-            print("-----=============== Initializing Outside Location ===============-----")
+            print("-----=============== Checking if 'Outside' Location exists ===============-----")
             from .models import Location  # or...
             # MyModel = self.get_model('MyModel')
             Location.objects.get(name='Outside')

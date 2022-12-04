@@ -14,7 +14,7 @@
         var initialState = {{ initialState| safe}};
     </script>
 {#<script src="{% static "/js/transit.js" %}"></script>#}
-<script src="{% script "/js/transit.js" %}"></script>
+<script src="{% static_or_webpack_dev "/js/transit.js" %}"></script>
 </body>
 
 </html>

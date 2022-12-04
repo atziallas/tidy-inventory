@@ -1,0 +1,48 @@
+version: "3.7"
+services:
+  db:
+    image: postgres:12.6
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+      - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./db/backups:/backups
+    environment:
+      - POSTGRES_USER=tidy
+      - POSTGRES_PASSWORD=tidypass
+  node:
+    build: ./node
+    image: tidy-node
+    tty: true
+    command: [ "npm", "run", "debug" ]
+    ports:
+      - "8888:8888"
+      - "9101:9101"
+      - "9000:9000"
+    volumes:
+      - ./node/src:/code/
+      - node_modules:/code/node_modules
+  django:
+    build: ./django
+    image: tidy-django
+    tty: true
+    # entrypoint: [ "./start.sh" ]
+    ports:
+      - "8000:8000"
+      - "3000:3000"
+    volumes:
+      - ./django/src:/code
+      - vscode_extensions:/root/.vscode-server
+
+    environment:
+      - DJANGO_CONFIGURATION=dev
+      - DB_HOST=db
+    depends_on:
+      - db
+
+volumes:
+  node_modules:
+  vscode_extensions:
+  dist:
+  postgres:
