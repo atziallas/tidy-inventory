@@ -14,7 +14,7 @@
                 "0.0.0.0:8000"
             ],
             "django": true,
-            "justMyCode": true
+            "justMyCode": false
         },
         {
             "name": "Python: Remote Attach",

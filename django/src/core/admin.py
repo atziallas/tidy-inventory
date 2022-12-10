@@ -3,8 +3,10 @@
 from django import forms
 from django.contrib import admin
 from django.contrib import messages
+from django.contrib.admin.widgets import AutocompleteSelect
 from django.db.models import Case, When, Value, FloatField
 from django.db.models.functions import Cast
+from core.widgets import DependantAutoCompleteSelectWidget
 # from django_admin_multiple_choice_list_filter.list_filters import MultipleChoiceListFilter
 
 from lib.barcode_admin_actions import generate_barcode, print_barcode, unlabel
@@ -14,11 +16,11 @@ from .models import Type, SubType, Thing, Tag, TagType, Location, Sublocation, H
 
 
 class TypeAdmin(admin.ModelAdmin):
-    search_fields = ('id', 'name')
+    search_fields = ['name']
 
 
 class SubTypeAdmin(admin.ModelAdmin):
-    search_fields = ('id', 'name')
+    search_fields = ['name']
 
 
 class LocationAdmin(admin.ModelAdmin):
@@ -72,13 +74,21 @@ class SubTypeListFilter(admin.SimpleListFilter):
 
 # class MultipleListFilter(RelatedOnlyFieldListFilter):
 
-
+# class ThingForm(forms.ModelForm):
+#     class Meta:
+#         model = Thing()
+#         widgets = {
+#             'type': AutocompleteSelect(Type,admin.site),
+#             'subType': DependantAutoCompleteSelectWidget()
+#         }
+#         fields = '__all__'
 
 class ThingAdmin(admin.ModelAdmin):
+    # form = ThingForm
     list_filter = (('type__plane',MultipleRelatedOnlyFieldListFilter), TypeListFilter, SubTypeListFilter, ('location',admin.RelatedOnlyFieldListFilter), 'tags')
     list_display = ('name', 'barcode', 'type', 'subType', 'fetched_length', 'labeled')
-    search_fields = ('name', 'id')
-    autocomplete_fields = ('type', 'subType',)
+    # search_fields = ('name', 'id')
+    autocomplete_fields = ['type', 'subType']
 
 
     def fetched_length(self, obj):
@@ -105,11 +115,6 @@ class ThingAdmin(admin.ModelAdmin):
     generate_barcode.short_description = 'Generate Barcode'
     unlabel.short_description = 'Unlabel'
 
-
-class ThingForm(forms.ModelForm):
-    class Meta:
-        model = Thing()
-        fields = []
 
 
 admin.site.register(Type, TypeAdmin)
