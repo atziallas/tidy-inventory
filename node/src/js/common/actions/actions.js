@@ -23,6 +23,11 @@ export const MESSAGE_FADE_TIME = 500
 export const SCANNED_BARCODE = 'SCANNED_BARCODE'
 export const BARCODE_CHANGED = 'BARCODE_CHANGED'
 export const CLEAR_BARCODE = 'CLEAR_BARCODE'
+export const FILE_DOWNLOADED = 'FILE_DOWNLOADED'
+
+export const fileDownloaded = () => ({
+    type: FILE_DOWNLOADED,
+})
 
 export const transfer = () => ({
     type: TRANSFER,

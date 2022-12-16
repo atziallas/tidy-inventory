@@ -1,6 +1,6 @@
-import {getFiltersAndSorting, getSelectedAction} from "../reducers/reducer";
-import {getSelections} from "../../common/reducers/selections";
-import {headers} from "../../common/services/api";
+import { getFiltersAndSorting, getSelectedAction } from "../reducers/reducer";
+import { getSelections } from "../../common/reducers/selections";
+import { headers } from "../../common/services/api";
 
 const doAction = (state) => fetch('./action', {
     method: "POST",
@@ -11,7 +11,7 @@ const doAction = (state) => fetch('./action', {
     }),
     headers
 }).then(response => {
-    return response.json();
+    return response
 })
 
 const fetchLookup = (payload, lookup) =>
@@ -20,7 +20,7 @@ const fetchLookup = (payload, lookup) =>
         body: JSON.stringify(payload),
         headers
     }).then(response => {
-        return response.json();
+        return response.json()
     })
 
 const filter = (filtersAndSorting) => fetch('./filter', {
@@ -31,7 +31,7 @@ const filter = (filtersAndSorting) => fetch('./filter', {
     return response.json();
 })
 
-const designate = (selections, designatedLocation, designatedSublocation,filtersAndSorting) => fetch('designate', {
+const designate = (selections, designatedLocation, designatedSublocation, filtersAndSorting) => fetch('designate', {
     method: "POST",
     body: JSON.stringify({
         selections,
@@ -44,7 +44,7 @@ const designate = (selections, designatedLocation, designatedSublocation,filters
     return response.json();
 })
 
-const transfer = (selections, location, sublocation,filtersAndSorting) => fetch('transfer', {
+const transfer = (selections, location, sublocation, filtersAndSorting) => fetch('transfer', {
     method: "POST",
     body: JSON.stringify({
         selections,

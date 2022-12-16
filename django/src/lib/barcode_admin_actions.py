@@ -1,4 +1,4 @@
-from io import BytesIO
+from io import BytesIO, StringIO
 
 from barcode import generate
 from docx import Document
@@ -9,6 +9,7 @@ from lib.writer import ImageWriter
 from tidy.settings import SEQUENCE_NAME
 from django.contrib import messages
 
+ACTION_FAIL = 'fail'
 
 def generate_barcode(modeladmin, request, queryset):
     for thing in queryset:
@@ -27,10 +28,15 @@ def unlabel(modeladmin, request, queryset):
 
 def print_barcode(modeladmin, request, queryset):
     idx = 0
-    doc = Document('core/templates/labels/MR183.docx')
+    with open('core/templates/labels/MR183.docx', 'rb') as f:
+        source_stream = BytesIO(f.read())
+    doc = Document(source_stream)
+    source_stream.close()
+    # doc = Document('core/templates/labels/MR183.docx')
 
     # the template text and barcode cells pattern is a bit convoluted
     # so for now I use just this to easily port to another template
+    # the sticker labels template, doesnt have  
     barcode_pos = [
         [0, 0], [0, 4], [0, 8],
         [2, 2], [2, 6], [2, 10],
@@ -70,7 +76,7 @@ def print_barcode(modeladmin, request, queryset):
 
         if not thing.barcode:
             modeladmin.message_user(request, "%s has no barcode" % thing, messages.ERROR)
-            return
+            return ACTION_FAIL
 
         generate('EAN13', thing.barcode, writer=ImageWriter(), output=fp,
                  writer_options={
@@ -88,8 +94,11 @@ def print_barcode(modeladmin, request, queryset):
         thing.save()
         idx += 1
 
-    doc.save('core/templates/labels/MR183filled.docx')
+    # doc.save('core/templates/labels/MR183filled.docx')
+    target_stream = BytesIO()
+    doc.save(target_stream)
     modeladmin.message_user(request, "Word file saved succesfuly")
+    return target_stream
 
 
 def add_barcode_image(barcode_pos, docTable, fp, idx):

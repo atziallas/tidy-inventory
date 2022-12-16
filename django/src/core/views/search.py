@@ -5,11 +5,11 @@ from django.contrib.admin import AdminSite, ModelAdmin
 from django.contrib.messages import get_messages
 from django.db.models import When, Value, Case, FloatField
 from django.db.models.functions import Cast
-from django.http import HttpResponse
+from django.http import FileResponse, HttpResponse
 from django.template import loader
 
 from core.models import Thing, Location, Sublocation
-from lib.barcode_admin_actions import print_barcode, generate_barcode, unlabel
+from lib.barcode_admin_actions import ACTION_FAIL, print_barcode, generate_barcode, unlabel
 from lib.converters import create_entities_json, filter_and_convert
 from lib.custom import MultipleRelatedOnlyFieldListFilter, DependantMultipleListFilter
 
@@ -28,24 +28,18 @@ class ThingAdmin(ModelAdmin):
         'tags',
         'location',
         ('sublocation', SublocationFilter))
-    list_display = ('name', 'barcode', 'type', 'subType', 'fetched_length', 'placed', 'designated', 'labeled')
+    list_display = ('name', 'barcode', 'type', 'subType',
+                    'fetched_length', 'placed', 'designated', 'labeled')
     search_fields = ('name', 'id')
 
     def get_queryset(self, request):
-        return Thing.objects.annotate(length=Case(When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field = FloatField())),
-            default=Value(0.0)
-        ))
+        return Thing.objects.annotate(length=Case(When(tags__tagType__name__exact='Length', then=Cast('tags__value', output_field=FloatField())),
+                                                  default=Value(0.0)
+                                                  ))
 
     def fetched_length(self, obj):
         return obj.length
 
-    # def location(self, obj):
-    #     return f"${obj.location} (${obj.designated_location})"
-
-    # def designation(self, obj):
-    #     return obj.designated_sublocation
-
-    # location.short_description = 'haha'
     fetched_length.admin_order_field = 'length'
     fetched_length.short_description = 'Length'
 
@@ -56,7 +50,7 @@ class ThingAdmin(ModelAdmin):
     print_barcode = print_barcode
     unlabel = unlabel
 
-    actions = [test,generate_barcode, print_barcode, unlabel]
+    actions = [test, generate_barcode, print_barcode, unlabel]
 
     print_barcode.short_description = 'Print Barcode'
     generate_barcode.short_description = 'Generate Barcode'
@@ -69,33 +63,54 @@ def index(request):
     template = loader.get_template('core/search.html')
     return HttpResponse(template.render({'initialState': json.dumps(state)}, request))
 
+
 def filter(request):
     admin = ThingAdmin(Thing, AdminSite())
     response_dict = filter_and_convert(admin, request)
     return HttpResponse(json.dumps(response_dict), content_type='application/json')
 
+
 def action(request):
     parsed_request = json.loads(request.body)
     admin = ThingAdmin(Thing, AdminSite())
-    action = admin.get_action(parsed_request["selectedAction"])
+    request_action = parsed_request["selectedAction"] 
+    action = admin.get_action(request_action)
     qs = admin.model.objects.filter(pk__in=parsed_request['selections'])
-    action[0](admin, request, qs)
+    result = action[0](admin, request, qs)
     messages = []
-    for message in get_messages(request):
-        messages.append({'message': message.message, 'tags': [message.tags], 'show': False})
-    response_dict = {
-        **filter_and_convert(ThingAdmin(Thing, AdminSite()), request),
-        'messages': messages
-    }
-    return HttpResponse(json.dumps(response_dict), content_type='application/json')
+    admin_messages = get_messages(request)
+
+    for message in admin_messages:
+        messages.append({'message': message.message, 'tags': [
+                        message.tags], 'show': False})
+
+    if request_action == 'print_barcode' and result != ACTION_FAIL:
+        #
+        #result.getbuffer().nbytes
+        result.seek(0)
+        response = HttpResponse(result.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
+        # response = HttpResponse(result.read(), content_type='application/octet-stream')
+        response['Content-Disposition'] = 'attachment; filename=test.docx'  
+        # return FileResponse(result, as_attachment=True, filename='aha.docx')
+        # response['Content-Disposition'] = 'attachment; filename="template.docx"'
+        return response
+    else:
+        response_dict = {
+            **filter_and_convert(ThingAdmin(Thing, AdminSite()), request),
+            'messages': messages
+        }
+        return HttpResponse(json.dumps(response_dict), content_type='application/json')
+
 
 def transfer(request):
     parsed_request = json.loads(request.body)
     for thing_id in parsed_request["selections"]:
         thing = Thing.objects.get(pk=thing_id)
-        thing.location = Location.objects.get(pk=parsed_request['location']['id'])
+        thing.location = Location.objects.get(
+            pk=parsed_request['location']['id'])
         if ('id' in parsed_request['sublocation']):
-            thing.sublocation = Sublocation.objects.get(pk=parsed_request['sublocation']['id'])
+            thing.sublocation = Sublocation.objects.get(
+                pk=parsed_request['sublocation']['id'])
         else:
             thing.sublocation = None
         thing.save()
@@ -103,13 +118,16 @@ def transfer(request):
     response_dict = filter_and_convert(ThingAdmin(Thing, AdminSite()), request)
     return HttpResponse(json.dumps(response_dict), content_type='application/json')
 
+
 def designate(request):
     parsed_request = json.loads(request.body)
     for thing_id in parsed_request["selections"]:
         thing = Thing.objects.get(pk=thing_id)
-        thing.designated_location = Location.objects.get(pk=parsed_request['designatedLocation']['id'])
+        thing.designated_location = Location.objects.get(
+            pk=parsed_request['designatedLocation']['id'])
         if ('id' in parsed_request['designatedSublocation']):
-            thing.designated_sublocation = Sublocation.objects.get(pk=parsed_request['designatedSublocation']['id'])
+            thing.designated_sublocation = Sublocation.objects.get(
+                pk=parsed_request['designatedSublocation']['id'])
         else:
             thing.designated_sublocation = None
         thing.save()

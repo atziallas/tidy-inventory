@@ -91,7 +91,8 @@ class Sublocation(models.Model):
 class Thing(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     barcode = models.CharField(max_length=128, blank=True, null=True)
-    name = models.CharField(max_length=200)
+    name = models.CharField(max_length=150)
+    description = models.CharField(max_length=300, null=True)
     type = models.ForeignKey(Type, on_delete=models.PROTECT, null=True)
     subType = models.ForeignKey(SubType, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)

@@ -1,4 +1,4 @@
-import {all, call, debounce, fork, put, select, take, takeEvery, throttle} from 'redux-saga/effects'
+import { all, call, debounce, fork, put, select, take, takeEvery, throttle } from 'redux-saga/effects'
 import {
     CANCEL_SORTING,
     CLICK_COLUMN,
@@ -10,8 +10,8 @@ import {
     updateEntities,
 } from '../actions/actions';
 import 'regenerator-runtime/runtime'
-import {Api} from '../services/api';
-import {getFiltersAndSorting} from "../reducers/reducer"
+import { Api } from '../services/api';
+import { getFiltersAndSorting } from "../reducers/reducer"
 import {
     BARCODE_CHANGED,
     barcodeChanged,
@@ -20,24 +20,47 @@ import {
     SCANNED_BARCODE,
     selectEntity,
     setLookup,
-    TRANSFER
+    TRANSFER,
+    FILE_DOWNLOADED,
+    fileDownloaded
 } from '../../common/actions/actions';
-import {timeAndDisplayMessages} from "../../common/sagas/messages";
-import {getEntity, getEntityIdByBarcode} from "../reducers/entities";
-import {validateEAN13} from "../../common/utils/utils";
-import {getSelections, isSelected} from "../../common/reducers/selections";
-import {getLocation, getSublocation} from "../../common/reducers/locations";
-import {getDesignatedLocation, getDesignatedSublocation} from "../../common/reducers/designatedLocations";
-import {getFilters} from "../reducers/filters";
+import { timeAndDisplayMessages } from "../../common/sagas/messages";
+import { getEntity, getEntityIdByBarcode } from "../reducers/entities";
+import { validateEAN13 } from "../../common/utils/utils";
+import { getSelections, isSelected } from "../../common/reducers/selections";
+import { getLocation, getSublocation } from "../../common/reducers/locations";
+import { getDesignatedLocation, getDesignatedSublocation } from "../../common/reducers/designatedLocations";
+import { getFilters } from "../reducers/filters";
 
 function* doAction() {
     const state = yield select()
-    const json = yield call(Api.doAction, state)
-    yield put(updateEntities(json))
-    const messages = json.messages
-    yield call(timeAndDisplayMessages, messages)
-}
+    const response = yield call(Api.doAction, state)
+    let contentType = response.headers.get('content-type')
+    // if (contentType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+    if (contentType !== "application/json") {
+        let blob = yield response.blob()
 
+        var a = document.createElement("a");
+        document.body.appendChild(a);
+        a.style = "display: none";
+        // blob = new Blob([json], { type: "octet/stream" }),
+        var url = window.URL.createObjectURL(blob);
+        a.href = url;
+        a.download = "test.docx";
+        a.click();
+        window.URL.revokeObjectURL(url);
+
+        const messages = [{ message: 'File downloaded', show: false, tags: ['success'] }]
+        yield put(fileDownloaded())
+        yield call(timeAndDisplayMessages, messages)
+    }
+    else {
+        let json = yield response.json();
+        yield put(updateEntities(json))
+        const messages = json.messages
+        yield call(timeAndDisplayMessages, messages)
+    }
+}
 
 function* doActionWatcher() {
     yield takeEvery(DO_ACTION, doAction)
@@ -165,8 +188,8 @@ function* scannedBarcodeWatcher() {
 function* toggleLoaderWatcher() {
     let count = 0
     while (true) {
-        const action = yield take([CANCEL_SORTING, CLICK_COLUMN, CLICK_FILTER, TRANSFER, DESIGNATE, DO_ACTION, UPDATE_ENTITIES])
-        if (action.type !== UPDATE_ENTITIES) {
+        const action = yield take([CANCEL_SORTING, CLICK_COLUMN, CLICK_FILTER, TRANSFER, DESIGNATE, DO_ACTION, UPDATE_ENTITIES, FILE_DOWNLOADED])
+        if (action.type !== UPDATE_ENTITIES && action.type !== FILE_DOWNLOADED) {
             count++
             yield put(showLoader())
         } else {
