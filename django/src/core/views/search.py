@@ -1,5 +1,6 @@
 import json
 
+from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.admin import AdminSite, ModelAdmin
 from django.contrib.messages import get_messages
@@ -57,6 +58,7 @@ class ThingAdmin(ModelAdmin):
     unlabel.short_description = 'Unlabel'
 
 
+@login_required
 def index(request):
     admin = ThingAdmin(Thing, AdminSite())
     state = create_entities_json(admin, request)
@@ -85,14 +87,9 @@ def action(request):
                         message.tags], 'show': False})
 
     if request_action == 'print_barcode' and result != ACTION_FAIL:
-        #
-        #result.getbuffer().nbytes
         result.seek(0)
         response = HttpResponse(result.read(), content_type='application/vnd.openxmlformats-officedocument.wordprocessingml.document')
-        # response = HttpResponse(result.read(), content_type='application/octet-stream')
-        response['Content-Disposition'] = 'attachment; filename=test.docx'  
-        # return FileResponse(result, as_attachment=True, filename='aha.docx')
-        # response['Content-Disposition'] = 'attachment; filename="template.docx"'
+        response['Content-Disposition'] = 'attachment; filename=stickers_template.docx'  
         return response
     else:
         response_dict = {

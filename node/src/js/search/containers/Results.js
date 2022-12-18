@@ -1,41 +1,62 @@
 import React from 'react'
-import {connect} from 'react-redux'
-import {getFields, getLoading,} from '../reducers/reducer';
-import {Loader} from "../components/Loader";
-import {getAllEntityIds, getEntity} from '../reducers/entities';
-import {isSelected} from "../../common/reducers/selections";
-import {toggleSelection} from "../../common/actions/actions";
+import { connect } from 'react-redux'
+import { getFields, getLoading, } from '../reducers/reducer';
+import { Loader } from "../components/Loader";
+import { getAllEntityIds, getEntity } from '../reducers/entities';
+import { isSelected } from "../../common/reducers/selections";
+import { toggleSelection } from "../../common/actions/actions";
 import ResultsHeader from "./ResultsHeader";
-import {getLookup, getLookupField} from "../../common/reducers/lookups";
-import {getThingUrl} from "../../common/utils/utils";
+import { getLookup, getLookupField } from "../../common/reducers/lookups";
+import { getThingUrl } from "../../common/utils/utils";
 
-const Results = ({fields, entityIds, getEntity, isSelected, selectLine, loading}) => (
-    <div className={loading ? "loading" : ""} style={{position: "relative"}}>
-        <Loader width="150px" height="90px" extraClasses=""/>
+const drawFieldCell = (entityId, field, getEntity) => {
+    if (field.id === 'name')
+        return (
+            <td key={field.id}>
+                <a href={getThingUrl(entityId)}>{getEntity(entityId).name}</a>
+            </td>
+        )
+    else if (field.id === 'fetched_length') {
+        var length = getEntity(entityId)[field.id]
+        if (length === "0.0") {
+            length = "-"
+        }
+        return (
+            <td key={field.id}>
+                <span>{length}</span>
+            </td>
+        )
+    }
+    else
+        // django admin returns html for some fields e.g. <img> for boolean fields
+        return (
+            <td key={field.id}> 
+                <span dangerouslySetInnerHTML={{ __html: getEntity(entityId)[field.id] }} />
+            </td>
+        )
+
+}
+
+const Results = ({ fields, entityIds, getEntity, isSelected, selectLine, loading }) => (
+    <div className={loading ? "loading" : ""} style={{ position: "relative" }}>
+        <Loader width="150px" height="90px" extraClasses="" />
         <div className="loaderModal">
             <div className="table-responsive-lg">
                 <table className="table table-striped mt-2 searchTable vertical-middle">
-                    <ResultsHeader/>
+                    <ResultsHeader />
                     <tbody>
-                    {entityIds.map(entityId => (
-                        <tr key={entityId} onClick={selectLine(entityId)}
-                            className={isSelected(entityId) ? 'table-warning' : ''}>
-                            <td>
-                                <input type="checkbox" checked={isSelected(entityId)}
-                                       value={entityId} readOnly/>
-                            </td>
-                            {fields.map(field =>
-                                field.id === 'name' ?
-                                    <td key={field.id}>
-                                        <a href={getThingUrl(entityId)}>{getEntity(entityId).name}</a>
-                                    </td>
-                                    :
-                                    <td key={field.id}>
-                                        <span dangerouslySetInnerHTML={{__html: getEntity(entityId)[field.id]}}/>
-                                    </td>
-                            )}
-                        </tr>
-                    ))}
+                        {entityIds.map(entityId => (
+                            <tr key={entityId} onClick={selectLine(entityId)}
+                                className={isSelected(entityId) ? 'table-warning' : ''}>
+                                <td>
+                                    <input type="checkbox" checked={isSelected(entityId)}
+                                        value={entityId} readOnly />
+                                </td>
+                                {fields.map(field =>
+                                   drawFieldCell(entityId, field, getEntity) 
+                                )}
+                            </tr>
+                        ))}
                     </tbody>
                 </table>
             </div>

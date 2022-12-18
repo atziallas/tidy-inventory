@@ -1,6 +1,7 @@
 from django.urls import path
 
 from core.views import search,transit,dashboard
+from django.contrib.auth.views import LogoutView, LoginView
 
 urlpatterns = [
     path('', dashboard.index, name='browse'),
@@ -16,5 +17,7 @@ urlpatterns = [
     path('designate', search.designate, name='designate'),
     path('transfer', search.transfer, name='transfer'),
     path('transit/designate', transit.designate, name='designate'),
-    path('transit/transfer', transit.transfer, name='transfer')
+    path('transit/transfer', transit.transfer, name='transfer'),
+    path("logout/", LogoutView.as_view(), name="logout"),
+    path("login/", LoginView.as_view(), name="login"),
 ]

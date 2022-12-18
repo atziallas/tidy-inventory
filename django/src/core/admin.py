@@ -126,7 +126,6 @@ class ThingAdmin(admin.ModelAdmin):
                    SubTypeListFilter, ('location', admin.RelatedOnlyFieldListFilter), 'tags')
     list_display = ('name', 'barcode', 'type', 'subType',
                     'fetched_length', 'labeled')
-    # search_fields = ('name', 'id')
     autocomplete_fields = ['type', 'subType', 'location',
                            'sublocation', 'designated_location', 'designated_sublocation']
 

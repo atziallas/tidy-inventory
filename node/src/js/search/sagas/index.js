@@ -36,20 +36,8 @@ function* doAction() {
     const state = yield select()
     const response = yield call(Api.doAction, state)
     let contentType = response.headers.get('content-type')
-    // if (contentType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
-    if (contentType !== "application/json") {
-        let blob = yield response.blob()
-
-        var a = document.createElement("a");
-        document.body.appendChild(a);
-        a.style = "display: none";
-        // blob = new Blob([json], { type: "octet/stream" }),
-        var url = window.URL.createObjectURL(blob);
-        a.href = url;
-        a.download = "test.docx";
-        a.click();
-        window.URL.revokeObjectURL(url);
-
+    if (contentType === "application/vnd.openxmlformats-officedocument.wordprocessingml.document") {
+        yield call(extractAndDownloadFile,response);
         const messages = [{ message: 'File downloaded', show: false, tags: ['success'] }]
         yield put(fileDownloaded())
         yield call(timeAndDisplayMessages, messages)
@@ -62,6 +50,18 @@ function* doAction() {
     }
 }
 
+function* extractAndDownloadFile(response) {
+    let blob = yield response.blob();
+    var a = document.createElement("a");
+    document.body.appendChild(a);
+    a.style = "display: none";
+    var url = window.URL.createObjectURL(blob);
+    a.href = url;
+    a.download = "stickers_template.docx";
+    a.click();
+    window.URL.revokeObjectURL(url);
+}
+
 function* doActionWatcher() {
     yield takeEvery(DO_ACTION, doAction)
 }
@@ -69,13 +69,11 @@ function* doActionWatcher() {
 export function* transfer() {
     const json = yield call(Api.transfer, yield select(getSelections), yield select(getLocation), yield select(getSublocation), yield select(getFiltersAndSorting))
     yield put(updateEntities(json))
-    // yield put(apiResponse('transfer', json))
 }
 
 export function* designate() {
     const json = yield call(Api.designate, yield select(getSelections), yield select(getDesignatedLocation), yield select(getDesignatedSublocation), yield select(getFiltersAndSorting))
     yield put(updateEntities(json))
-    // yield put(apiResponse('designate', json))
 }
 
 function* relocate() {

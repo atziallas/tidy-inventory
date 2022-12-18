@@ -1,19 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends "core/base.html" %}
 {% load static %}
 {% load extra_tags %}
-<head>
-    <meta charset="UTF-8">
+{% block head %}
+    <meta charset="UTF-8" />
     <title>Browse</title>
-</head>
-<body>
-{% csrf_token %}
-<div id="root"></div>
-<script>
-    var initialState = {{initialState|safe}};
-</script>
-<link rel="stylesheet" type="text/css" href="{% static "core/js/dist/search.css" %}">
-{#<script src="{% static "/js/search.js" %}"></script>#}
-<script src="{% static_or_webpack_dev "/js/search.js" %}"></script>
-</body>
-</html>
+{% endblock head %}
+{% block content %}
+    {% csrf_token %}
+    <div id="root"></div>
+    <script>var initialState = {{initialState|safe}};</script>
+    <link rel="stylesheet"
+          type="text/css"
+          href="{% static "core/js/dist/search.css" %}"/>
+    <script src="{% static_or_webpack_dev "/js/search.js" %}"></script>
+{% endblock content %}

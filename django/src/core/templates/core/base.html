@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        {% block head %}
+            <meta charset="UTF-8" />
+            <title>Browse</title>
+        {% endblock head %}
+        <style>
+            .banner {
+                background-color: #007bff;
+                width: 100%;
+                display: flex;
+                justify-content: space-between;
+            }
+            .right {
+                align-self: flex-end;
+
+            }
+            .center {
+                align-self: center;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="banner">
+            <div class="center">
+                tidy-inventory
+            </div>
+            <div class="right">
+                {% if user.is_authenticated %}
+                    Welcome, {{ user.username }} <a href="{% url 'logout' %}">Logout</a>
+                {% else %}
+                    Welcome, new user. Please log in.
+                {% endif %}
+            </div>
+        </div>
+        {% block content %}
+        {% endblock content %}
+    </body>
+</html>

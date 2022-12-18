@@ -7,6 +7,8 @@ SEQUENCE_NAME="tidy"
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
+LOGIN_URL = "/login"
+
 # sys.path.append(os.path.dirname('../django-ajax-selects'+os.path.abspath(__file__)))
 
 
@@ -52,8 +54,12 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [],
-        'APP_DIRS': True,
+        # 'APP_DIRS': True,
         'OPTIONS': {
+             'loaders': [(
+                'django.template.loaders.app_directories.Loader',
+                'django.template.loaders.filesystem.Loader',
+            )],
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
