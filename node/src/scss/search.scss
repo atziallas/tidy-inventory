@@ -46,7 +46,7 @@ $gutter-denominator: 8;
     height: 100%;
   }
 
-  .responsiveSidebar {
+   .responsiveSidebar {
     position: fixed;
     background: white;
     top: 100px;
@@ -61,10 +61,15 @@ $gutter-denominator: 8;
     right: 18px;
     position: static;
     text-align: center;
-    padding: 13px 0 13px 0;
+    padding: 5px 0 5px 0;
     border-radius: 8px;
     width: auto;
     height: auto;
+  }
+
+  .active #sidebarButtonIcon {
+    transform: rotate(180deg);
+    transition: 1s;
   }
 
   .sidebarButton {
