@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
     <head>
         {% block head %}
@@ -6,29 +7,51 @@
             <title>Browse</title>
         {% endblock head %}
         <style>
+            @font-face {
+                font-family: 'MochiyPop';
+                src: local('MochiyPop'),
+                     url('{% static 'core/fonts/MochiyPopPOne-Regular.ttf' %} ');
+            }
             .banner {
                 background-color: #007bff;
                 width: 100%;
                 display: flex;
                 justify-content: space-between;
+                margin-bottom: 10px;
             }
             .right {
-                align-self: flex-end;
-
+                flex-direction: column;
+                align-self: center;
+                color: white;
+                display: flex;
+                padding: 0px 6px 3px 0px;
+                align-items: baseline;
             }
             .center {
                 align-self: center;
+                font-family: MochiyPop;
+                margin: 4px 0px 9px 0px;
+                font-size: 22px;
+                color: white;
             }
+
+            .left {
+                display: flex;
+            }
+
+            
         </style>
     </head>
     <body>
         <div class="banner">
-            <div class="center">
-                tidy-inventory
-            </div>
+            <div class="left"></div>
+            <div class="center">tidy-inventory</div>
             <div class="right">
                 {% if user.is_authenticated %}
-                    Welcome, {{ user.username }} <a href="{% url 'logout' %}">Logout</a>
+                    <div>Welcome, {{ user.username }}</div>
+                    <div>
+                        <a href="{% url 'logout' %}">Logout</a>
+                    </div>
                 {% else %}
                     Welcome, new user. Please log in.
                 {% endif %}
