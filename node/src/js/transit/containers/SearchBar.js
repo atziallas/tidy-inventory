@@ -27,6 +27,7 @@ const SearchBar = ({barcode, showArchive, loading, toggleArchive, toggleBarcode,
                                className="form-control"
                                onChange={searchBarcode}
                                value={barcode}
+                               placeholder="Enter or scan a barcode"
                         />
                     </div>
                 </div>

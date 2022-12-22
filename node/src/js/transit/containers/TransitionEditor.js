@@ -14,7 +14,7 @@ import {designate, transfer} from "../../common/actions/actions";
 const TransitionEditor = ({transition, setTransition, transfer, designate}) => {
     return (
         <Fragment>
-            <div className="row justify-content-center mt-3">
+            {/* <div className="row justify-content-center mt-3">
                 <div className="col-5 col-md-4 col-lg-3 text-center">
                     <div className={"inOut p-3" + (transition === 'INCOMING' ? " selected" : "")} onClick={setTransition(INCOMING)}>
                         <img className="d-block mx-auto" src={incoming}/>
@@ -27,7 +27,7 @@ const TransitionEditor = ({transition, setTransition, transfer, designate}) => {
                         <div className="pt-2">Outgoing</div>
                     </div>
                 </div>
-            </div>
+            </div> */}
             <div className="row justify-content-center mt-3">
                 <div className="col-12 col-sm-5 col-lg-4 col-xl-3">
                     <div>
