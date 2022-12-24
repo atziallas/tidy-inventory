@@ -1,0 +1,28 @@
+{% extends "admin/base.html" %}
+{% load static %}
+{% block extrahead %}
+    <style>
+    @font-face {
+        font-family: 'MochiyPop';
+        src: local('MochiyPop'),
+             url('{% static 'core/fonts/MochiyPopPOne-Regular.ttf' %} ');
+    }
+
+    .logo {
+        font-family: MochiyPop;
+        font-size: 21px;
+        color: white;
+    }
+
+    .logo a {
+        color: white !important;
+        text-decoration: none;
+    }
+
+    .logo a:hover {
+        color: white !important;
+        text-decoration: none;
+    }
+    </style>
+{% endblock %}
+{% block branding %}<div class="logo"><a href="/">tidy-inventory</a></div>{% endblock %}

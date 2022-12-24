@@ -26,6 +26,4 @@ from django.urls import path
 urlpatterns = [
                   path('', include('core.urls')),
                   path('admin/', admin.site.urls),
-                  path('^chaining/', include('smart_selects.urls')),
-                #   path(r'^ajax_select/', include(ajax_select_urls))
               ] + static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

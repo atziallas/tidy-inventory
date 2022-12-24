@@ -7,7 +7,6 @@ from django.contrib.admin.widgets import AutocompleteSelect
 from django.db.models import Case, When, Value, FloatField
 from django.db.models.functions import Cast
 from django.templatetags.static import static
-# from django_admin_multiple_choice_list_filter.list_filters import MultipleChoiceListFilter
 
 from lib.barcode_admin_actions import generate_barcode, print_barcode, unlabel
 from lib.custom import MultipleRelatedOnlyFieldListFilter
@@ -100,6 +99,8 @@ class SubTypeListFilter(admin.SimpleListFilter):
 
 
 class ThingDependantAutocomplete(AutocompleteSelect):
+
+    #override autocomplete.js
     @property
     def media(self):
         parent_media = super().media
@@ -113,7 +114,6 @@ class ThingForm(forms.ModelForm):
     class Meta:
         model = Thing()
         widgets = {
-            # 'type': AutocompleteSelect(Type,admin.site),
             'subType': ThingDependantAutocomplete(Thing.subType.field, admin.site),
             'sublocation': ThingDependantAutocomplete(Thing.sublocation.field, admin.site),
         }
