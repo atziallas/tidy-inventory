@@ -76,9 +76,6 @@ module.exports = merge(common, {
         },
     },
     plugins: [
-        new MiniCssExtractPlugin({
-            filename: '[name].css',
-        }),
         new BundleTracker({
             path: __dirname,
             filename: './assets/webpack-stats.json'

@@ -58,7 +58,9 @@
     <body>
         <div class="banner">
             <div class="left"></div>
-            <div class="center"><a href="/">tidy-inventory</a></div>
+            <div class="center">
+                <a href="/">tidy-inventory</a>
+            </div>
             <div class="right">
                 {% if user.is_authenticated %}
                     <div style="align-self: end;">Welcome, {{ user.username }}</div>
@@ -66,7 +68,7 @@
                         <a href="{% url 'logout' %}">Logout</a>
                     </div>
                 {% else %}
-                    Welcome, new user. Please log in.
+                    <div style="align-self: end;">Welcome, new user. Please log in.</div>
                 {% endif %}
             </div>
         </div>

@@ -1,7 +1,15 @@
-
+const merge = require('webpack-merge');
+const common = require('./webpack.common.js');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
-module.exports = (env, argv) => ({
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const path = require('path');
+
+module.exports = merge(common, {
     mode: 'production',
+    output: {
+        path: path.resolve(__dirname, 'dist'),
+        filename: '[name].js',
+    },
     module: {
         rules: [
             {
@@ -24,6 +32,9 @@ module.exports = (env, argv) => ({
                     {
                         loader: MiniCssExtractPlugin.loader
                     },
+                    // {
+                    //     loader: 'style-loader'
+                    // },
                     {
                         loader: 'css-loader', // translates CSS into CommonJS modules
                     }, {
@@ -47,5 +58,6 @@ module.exports = (env, argv) => ({
         new MiniCssExtractPlugin({
             filename: '[name].css',
         }),
-        ]
+        // new BundleAnalyzerPlugin({ analyzerHost: '0.0.0.0' }),
+    ],
 })

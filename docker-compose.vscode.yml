@@ -23,6 +23,7 @@ services:
     volumes:
       - ./node/src:/code/
       - node_modules:/code/node_modules
+      - node_vscode_extensions:/root/.vscode-server
   django:
     build: ./django
     image: tidy-django
@@ -33,7 +34,7 @@ services:
       - "3000:3000"
     volumes:
       - ./django/src:/code
-      - vscode_extensions:/root/.vscode-server
+      - django_vscode_extensions:/root/.vscode-server
 
     environment:
       - DJANGO_CONFIGURATION=dev
@@ -43,6 +44,7 @@ services:
 
 volumes:
   node_modules:
-  vscode_extensions:
+  django_vscode_extensions:
+  node_vscode_extensions:
   dist:
   postgres:
