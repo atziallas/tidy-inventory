@@ -1,7 +1,6 @@
 import uuid
 
 from django.db import models
-from smart_selects.db_fields import ChainedForeignKey
 
 from lib.utils import none_to_underscore
 
@@ -16,7 +15,7 @@ class Plane(models.Model):
 class Type(models.Model):
     name = models.CharField(max_length=200)
     plane = models.ForeignKey(Plane, on_delete=models.PROTECT, null=True)
-    default_tags = models.ManyToManyField('TagType', blank=True, null=True)
+    default_tags = models.ManyToManyField('TagType', blank=True)
 
     def __str__(self):
         return self.name
@@ -25,7 +24,7 @@ class Type(models.Model):
 class SubType(models.Model):
     type = models.ForeignKey(Type, on_delete=models.PROTECT, null=True)
     name = models.CharField(max_length=200, null=True)
-    default_tags = models.ManyToManyField('TagType', blank=True, null=True)
+    default_tags = models.ManyToManyField('TagType', blank=True)
 
     def __str__(self):
         return self.name
@@ -92,7 +91,7 @@ class Thing(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     barcode = models.CharField(max_length=128, blank=True, null=True)
     name = models.CharField(max_length=150)
-    description = models.CharField(max_length=300, null=True)
+    description = models.CharField(max_length=300,blank=True, null=True)
     type = models.ForeignKey(Type, on_delete=models.PROTECT, null=True)
     subType = models.ForeignKey(SubType, on_delete=models.PROTECT, blank=True, null=True)
     tags = models.ManyToManyField(Tag, blank=True)

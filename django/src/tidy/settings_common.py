@@ -9,6 +9,8 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 LOGIN_URL = "/login"
 
+DEFAULT_AUTO_FIELD='django.db.models.AutoField'
+
 # sys.path.append(os.path.dirname('../django-ajax-selects'+os.path.abspath(__file__)))
 
 

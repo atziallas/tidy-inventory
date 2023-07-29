@@ -1,2 +1,3 @@
 How to dump database for docker entrypoint sql script:
 pg_dump -U tidy -W tidy > /backups/current.sql
+pg_dump -U tidy -W tidy > /backups/25April23.sql
