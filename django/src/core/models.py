@@ -42,10 +42,10 @@ class TagType(models.Model):
 
 class Tag(models.Model):
     tagType = models.ForeignKey(TagType, on_delete=models.PROTECT, null=True)
-    value = models.CharField(max_length=200, blank=True, null=True, default=None)
+    value = models.CharField(max_length=200, blank=True, null=True, default='')
 
     def __str__(self):
-        return self.tagType.name + ':' + self.value + ' ' + self.tagType.suffix
+        return self.tagType.name + ((':' + self.value) if self.value is not None else '') + ' ' + self.tagType.suffix
 
 
 class Owner(models.Model):

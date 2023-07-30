@@ -1,5 +1,13 @@
 version: "3.7"
 services:
+  pgadmin:
+    image: dpage/pgadmin4
+    ports:
+      - "8181:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=tidy@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=tidypass
+    profiles: ["db_admin"]
   db:
     image: postgres:12.6
     ports:
@@ -15,7 +23,7 @@ services:
     build: ./node
     image: tidy-node
     tty: true
-    command: [ "npm", "run", "debug" ]
+    command: ["npm", "run", "debug"]
     ports:
       - "8888:8888"
       - "9101:9101"
@@ -27,7 +35,7 @@ services:
     build: ./django
     image: tidy-django
     tty: true
-    entrypoint: [ "./start.sh" ]
+    entrypoint: ["./start.sh"]
     ports:
       - "8000:8000"
       - "3000:3000"

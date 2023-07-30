@@ -22,7 +22,7 @@ const ResultsHeader = ({fields,sortedColumnsCount,getSortingIndex,getSortingImag
             <th key={index} className="sortable-header">
                 <span style={{cursor:'pointer'}} onClick={clickColumn(index + 1)}>{field.label}</span>
                 {getSortingImage(index + 1) !== 'none' &&
-                <span style={{paddingLeft: '7px'}}>
+                <span>
                     <span>{sortedColumnsCount === 1 ? "" : getSortingIndex(index + 1)}</span>
                     <img style={headerStyle} src={getSortingImage(index + 1) === 'up' ? up : down}/>
                     <img
