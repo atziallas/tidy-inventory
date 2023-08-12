@@ -135,7 +135,7 @@ CREATE TABLE public.auth_user (
     last_login timestamp with time zone,
     is_superuser boolean NOT NULL,
     username character varying(150) NOT NULL,
-    first_name character varying(30) NOT NULL,
+    first_name character varying(150) NOT NULL,
     last_name character varying(150) NOT NULL,
     email character varying(254) NOT NULL,
     is_staff boolean NOT NULL,
@@ -560,7 +560,7 @@ ALTER SEQUENCE public.core_tagtype_id_seq OWNED BY public.core_tagtype.id;
 
 CREATE TABLE public.core_thing (
     id uuid NOT NULL,
-    name character varying(200) NOT NULL,
+    name character varying(150) NOT NULL,
     location_id integer,
     "subType_id" integer,
     sublocation_id integer,
@@ -568,7 +568,8 @@ CREATE TABLE public.core_thing (
     barcode character varying(128),
     labeled boolean NOT NULL,
     designated_location_id integer,
-    designated_sublocation_id integer
+    designated_sublocation_id integer,
+    description character varying(300)
 );
 
 
@@ -810,7 +811,7 @@ ALTER TABLE public.django_session OWNER TO tidy;
 
 CREATE TABLE public.sequences_sequence (
     name character varying(100) NOT NULL,
-    last integer NOT NULL,
+    last bigint NOT NULL,
     CONSTRAINT sequences_sequence_last_check CHECK ((last >= 0))
 );
 
@@ -1062,7 +1063,7 @@ COPY public.auth_permission (id, name, content_type_id, codename) FROM stdin;
 
 COPY public.auth_user (id, password, last_login, is_superuser, username, first_name, last_name, email, is_staff, is_active, date_joined) FROM stdin;
 2	pbkdf2_sha256$100000$XqKUldYOgugk$rli7i3LG+uqXCLXMuyR2db7v+NDWBTSG4h+QnYxedDo=	2019-02-26 09:17:53.01327+00	t	admin			admin@admin.com	t	t	2019-02-26 09:17:37.823462+00
-1	pbkdf2_sha256$150000$TgzAt2jBj5pF$y67RaA7JDWYgsTysln6HvPAN5lOgvd+W/F4uEpxt9H8=	2021-05-28 21:06:15.340094+00	t	tidy			verdienste@gmail.com	t	t	2018-08-01 18:18:24.796002+00
+1	pbkdf2_sha256$390000$HhfFqURsgVnZKHShR10aM2$4ZjEiSV796seW7b0JmtxTPo5dSI7sdbswssn58IZIfQ=	2023-03-06 14:21:33.228469+00	t	tidy			verdienste@gmail.com	t	t	2018-08-01 18:18:24.796002+00
 \.
 
 
@@ -1129,7 +1130,6 @@ COPY public.core_plane (id, name) FROM stdin;
 1	Audio
 2	Computing & Gadgets
 3	Photography and Video
-5	TEST
 4	Tools
 7	Hobby
 6	Home
@@ -1255,106 +1255,106 @@ COPY public.core_tagtype (id, name, suffix, "default_subType_id", default_type_i
 -- Data for Name: core_thing; Type: TABLE DATA; Schema: public; Owner: tidy
 --
 
-COPY public.core_thing (id, name, location_id, "subType_id", sublocation_id, type_id, barcode, labeled, designated_location_id, designated_sublocation_id) FROM stdin;
-beb09972-c099-4194-abd4-86d96126a827	XBox 360 Controller	2	15	2	3	\N	f	\N	\N
-265b0f35-696d-4751-b8b3-ec260066ed0c	Philips Warm 60w light	5	\N	3	17	8718696577554	t	\N	\N
-20317107-1c6e-41df-8887-a23ba85c1615	UTP Cable (0.5m)	\N	\N	\N	8	\N	f	\N	\N
-21061901-5a60-4d85-9852-72197bb3a894	Kanex Lighning Cable	\N	8	\N	6	2000000000376	f	\N	\N
-830208f6-0912-4f81-bdf9-312ac2edf178	Micro Usb (5-pin 0.25m)	2	18	2	6	2000000000338	f	5	5
-1e5844be-78ab-4457-bbc6-d5ccd4351820	Ikea 10x AA batteries	5	\N	3	18	23050	f	\N	\N
-29993f77-1d6f-48b3-93ab-2c478ddcdb8a	Powerball	5	\N	4	19		f	\N	\N
-23b00d9b-751d-4af8-8cd4-9cdc9aad1ff9	USB Mini cable (1m)	\N	19	\N	6	2000000000369	f	5	5
-cc2c4878-d62a-4815-8e0f-dd19670dcfdf	Samsung SSD 840 PRO box	2	\N	1	7	\N	f	\N	\N
-8ad8223a-14e8-4138-8e6d-fba088bea52e	X-mini II	5	4	4	4		f	\N	\N
-c3276ad6-14ee-4b87-ae65-dfca5f3637fd	Nikon MH-24 Battery Charger	2	\N	2	13	\N	f	\N	\N
-85ab1d1b-3ef2-4003-9244-1e2ba3341eb0	Microsoft XBox 360 Wifi dock	2	16	2	3	\N	f	\N	\N
-376a247f-a970-491c-ab1f-68bc2f2c4f57	EMU USB Midi Pouch	1	11	\N	9	\N	f	\N	\N
-81759e2f-266e-4339-a769-21f16531d6a6	PSU Cable (2.5m)	2	2	2	2	2000000000244	t	\N	\N
-60b77772-51c0-43c1-ad50-d2d4733047af	Midi Cable (6m)	5	\N	3	12	2000000000275	t	5	3
-c6b7f042-080c-4903-95bc-f8b4276d1393	Proel XLR Cable (5m)	5	1	3	1	2000000000046	t	\N	\N
-e0030d6b-0bfd-4a89-811e-6694f0aef7de	Plastic Bags	5	26	5	16		f	\N	\N
-03ba330a-aeac-44ea-b1d1-8eb737d68bf0	Proel Midi Cable (4m)	26	\N	\N	12	2000000000282	t	5	3
-3f8422a8-e502-4023-922b-a8c3a2084cc5	Apple Headphones (old)	2	14	2	11	\N	f	\N	\N
-d5c00ffe-2ba4-421d-b984-239b1da9a70d	PSU Cable (2.5m)	\N	2	\N	2	2000000000237	t	\N	\N
-220cfb5c-c08f-4d27-864f-e4964dd58209	PSU Cable (2m)	\N	2	\N	2	2000000000213	t	\N	\N
-3b546106-29dc-4493-a119-d7d585a47706	Double PSU Cable (2m)	\N	2	\N	2	2000000000220	t	\N	\N
-017a4fd5-53c1-485a-bdb3-5c7b60d74ccf	sssnake midi cable (4m)	5	\N	3	12	2000000000299	t	5	3
-05944d2a-0ce3-441b-8b82-f6ffcf07e1d1	Northpole headlight lead	\N	21	\N	16	7071875007686	t	\N	\N
-dc0229a2-3e27-443a-a82d-ddc2a23cd1d4	USB type B cable	2	9	\N	6	2000000000314	t	5	5
-51e2b769-9858-4c86-be65-f2bd3d6520a6	Locks	5	\N	4	25	\N	f	5	4
-df9166e1-24ed-49d7-89e7-83803fa14ceb	JBL Clip 2	2	4	2	4	\N	f	\N	\N
-c4402dc7-0f92-4dba-9415-b5fc3ed45665	Joby flexible tripod	2	17	\N	15	\N	f	\N	\N
-7c5446c5-8e40-4277-8573-fde5bd81a191	Old Keys	5	\N	5	20		f	\N	\N
-2c6c49fa-242f-409d-85e7-cf266fb3685b	VGA to MiniDisplay	2	\N	\N	10	\N	f	\N	\N
-7bf4399e-9804-4ea8-b2d3-8f8af368d04e	Netgear 8-port Ethernet Hub (100 Mbps)	5	3	4	3	\N	f	\N	\N
-428f72fe-7926-4cb1-adad-cff8cb377beb	TP-LINK TL-WN722N	5	22	4	3	2147356003903	f	\N	\N
-311440f6-e267-4422-9636-8df7f7b8dc06	Gym Gloves	5	23	5	22		f	\N	\N
-3232384c-3616-4850-86cc-5c84d2c7165d	3 port electric socket (no ground)	\N	24	\N	23		f	\N	\N
-3527851f-6260-489d-aa6e-34fd02d1eab9	3 meter electric socket extension (no ground)	\N	25	\N	23		f	\N	\N
-b08b1d6b-a58b-4f1d-a563-03043be48f60	UTP Cable (5m)	2	\N	2	8	\N	f	\N	\N
-f4719fee-f102-4ef4-a262-c79c9896b211	Nintento DMG-04	5	\N	4	27	\N	f	\N	\N
-ba8ac1ce-fca8-4405-889a-1866113ebedb	Αλμανάκο, Ντόναλτ, Μίκυ Μυστήριο, Κλασικά, Το βιβλίο των εξερευνητών	25	\N	10	28	\N	f	\N	\N
-e9e808a2-4f81-4d94-beda-07be2e5149d6	USB type B cable (2m yellow)	5	9	3	6	2000000000406	t	5	5
-032a4577-aeb3-47f2-a8a0-776f5687838d	Micro Usb (5-pin 0.5m)	\N	18	\N	6	2000000000390	f	5	5
-0cf8e945-d00f-4220-ae6f-ba7965a2e857	USB mini cable (0.5m)	\N	19	\N	6	2000000000383	f	5	5
-38774dc5-6ea2-4c8e-a3a4-614949b82778	USB extension cable	\N	20	\N	6	2000000000345	t	5	5
-be4ef97d-4772-4523-8f07-1a84e24f9148	Sentio iphone cable	2	8	2	6	2000000000321	f	5	5
-347a0080-a0b0-4dd4-b0ab-36fbb5440522	USB type B cable	1	9	\N	6	2000000000352	t	5	4
-ff0dc50e-ee57-48a5-9b5e-081f6f74030c	UTP Cable (5m)	2	\N	2	8	2000000000475	t	\N	\N
-6c934ac1-7a49-4131-a05c-afa89602150d	Proel XLR Cable (3m)	5	1	3	1	2000000000060	t	5	3
-22ad324e-6030-450a-9f25-29458800d6db	Belden 8m XLR Cable	5	1	3	1	2000000000206	t	5	3
-f0ea34fc-649c-4604-aa3b-58d8c53fe82c	Case Logic photo backpack	5	\N	5	14	\N	f	\N	\N
-6a92511e-e505-4f1c-a37a-6409e7d84038	Proel XLR Cable (10m)	5	1	3	1	2000000000152	t	5	3
-e8a63e00-3bde-42ec-b3ac-3f5e03d195c0	USB type B cable	5	9	3	6	2000000000307	t	2	2
-353dee8a-3562-47f0-8f22-591aa7a55cd9	Proel XLR Cable (3m)	5	1	3	1	2000000000077	t	5	3
-1bf6ef46-55a6-41ac-aba9-a2dec2adddec	Proel XLR Cable (3m)	5	1	3	1	2000000000053	t	5	3
-b11e600b-7931-4d9f-be24-7880c932861e	Proel XLR Cable (10m)	5	1	3	1	2000000000121	t	5	3
-753ee03b-e393-4637-b36d-8babb5fdb0e5	Accu XLR Cable (20m)	24	1	7	1	2000000000138	t	24	7
-cbcd1949-230f-4988-b3d0-9603c33cf2ed	Accu XLR Cable (20m)	24	1	6	1	2000000000114	t	24	6
-fb00a1c2-e45a-432a-8be4-6bf722d85226	Memorabillia	5	\N	5	21		f	5	5
-62569cb3-1943-41bb-a788-cd3f9ed5aa08	Proel XLR Cable (5m)	5	1	3	1	2000000000169	t	5	3
-57d0fc9b-fbea-441a-bc9d-bf4a33ab0a52	Proel XLR Cable (5m)	5	1	3	1	2000000000183	t	5	3
-3ef7ac3a-7a59-48e7-a546-3fb4f817217d	Small Clone Box	25	\N	8	26	683274010137	f	25	8
-022623d7-4527-4e0a-a407-8e704927b751	MXR Boost Box	25	\N	8	26	710137031944	f	25	8
-47f066b3-e990-4010-9974-bc07d7500d3e	Memory Boy Deluxe box	25	\N	8	26	683274011059	f	25	8
-9553b9e1-1f7d-42a3-bf4b-194f3a96ae0e	CryBaby wah box	25	\N	8	26	710137017665	f	25	8
-82a48823-d0ea-4d45-af79-a1daf3364b05	BOSS TU-2 box	25	\N	8	7	761294047224	f	25	8
-181fa799-a2a2-4d30-a7aa-49b28c32bc1b	Sennheiser RS 180 Box	25	\N	8	7	615104170520	f	25	8
-978fdd14-05bc-4812-9afe-d8aafe86f89a	Nikkor 50mm f/1.4G Box	25	\N	8	26	018202021822	f	25	8
-ac047b3c-264d-4857-95d3-a1c569a595c3	AKAI MPK 25 box	25	\N	9	7	\N	f	25	9
-f7fa764f-99e1-48f5-9d26-964e7c983220	Fender TS Cable	5	6	3	1	2000000000084	t	5	3
-78eaa927-3cc1-48ae-86a7-31c852c7ff97	Granite TS Cable (10m)	5	6	3	1	2000000000015	t	5	3
-9739fb02-715e-4fd3-ade9-73f134be58d7	Proel TS Cable (3m)	5	6	3	1	2000000000022	t	5	3
-404313bb-2792-4a7f-8352-89a703297848	Xiaomi Body comp box and receipt	\N	\N	\N	7	6934177707452	t	\N	\N
-1ed86a10-9574-4e47-a3fe-0071b6e6cbb7	Ysis Naterial extra screws and poles (Club 3d)	5	\N	4	16	\N	f	5	4
-7dd264cb-604f-4242-bed3-14dd665b13b1	Custom Audio Amp Tubes	5	27	4	29	\N	f	5	4
-212b7ab2-aa2e-4dd0-b64f-e7152535c7ec	LED Magic Ball	28	\N	11	17	\N	f	28	11
-acc56f6f-47ce-45d5-9b1f-fc6d17a847b0	DVI Cable	2	7	2	5	2000000000253	t	\N	\N
-e410753b-e798-46c5-a11b-28cdc1e27977	OEM TS Neutrik (2m)	27	6	\N	1	2000000000109	t	5	3
-587836e2-7655-4240-969c-907eccacf2b4	Sennheiser Minijack TRS cable	5	13	3	1	2000000000178	t	5	3
-5eef6a74-3a74-4883-85d3-3ed809c3c801	Ysis Naterial screen	25	\N	\N	30	\N	f	25	\N
-26dcc1b9-fcfa-4b59-addc-519cb860c507	PSU Cable (1.5m)	\N	2	\N	2	2000000000619	t	\N	\N
-8305502d-6824-43bc-bb3a-c22f06bb4c92	PSU Cable (1.5m)	\N	2	\N	2	2000000000626	t	\N	\N
-1c424dcc-75d7-4c26-a1c0-cbc0d8c46fdf	DIsplay port cable (2m)	\N	30	\N	5	2000000000633	t	\N	\N
-487a9978-27d5-4bc1-8ad1-d515a9a84708	Type C to DisplayPort cable (1.8m)	\N	31	\N	5	2000000000640	t	\N	\N
-7bdfe976-9b17-4f51-a0a2-b0954ae1bd12	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000657	t	\N	\N
-e43beb99-6e20-4f8b-93a7-32c15ef45ea7	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000664	t	\N	\N
-e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	HDMI Cable (1440p - 144hz - 2m)	\N	29	\N	5	2000000000671	t	\N	\N
-fa8aa674-93a0-4400-9f04-f58908ca2213	Fender California Cable Red (3m)	\N	6	\N	1	2000000000688	t	\N	\N
-43b3a7af-4cff-4a83-a592-26681d44ac93	Prof low noise inst cable (2m TS)	27	6	\N	1	2000000000192	t	5	3
-28498857-23f3-492d-a283-76b1b5a8fd61	VGA Cable (0.5m)	\N	12	\N	5	2000000000260	t	\N	\N
-6091910d-33be-451e-9a73-46e523f28c63	Cordial XLR cable (15m)	\N	1	\N	1	2000000000497	t	\N	\N
-ddea3c4f-b07a-499e-8854-806283608548	Cordial XLR cable (15m)	\N	1	\N	1	2000000000503	t	\N	\N
-5ae0ae41-9e3f-40aa-87ba-39ac1a94eb4d	Cordial XLR cable (15m)	\N	1	\N	1	2000000000510	t	\N	\N
-db97470b-0012-4ef6-8bb5-829bfbda8e1e	SC The stage cable (15m)	\N	5	\N	1	2000000000527	t	\N	\N
-7c4d5c6b-af99-4379-802c-e841b07ac019	SC The stage cable (15m)	\N	5	\N	1	2000000000534	t	\N	\N
-217e4015-792c-4d96-9bba-d8ff279abc35	SC The Spirit cable (15m)	\N	28	\N	1	2000000000541	t	\N	\N
-4cf1b8b9-a9e9-4257-acb9-f021acc05b67	HDMI Cable (2m)	\N	29	\N	5	2000000000558	t	\N	\N
-a3124db2-9cc1-47c3-a654-bc00c5619f3b	HDMI Cable (1m)	\N	29	\N	5	2000000000565	t	\N	\N
-10ade344-0c51-4ff7-acaf-9a375ae182d5	PSU Cable (2m)	\N	2	\N	2	2000000000572	t	\N	\N
-59b8a868-08eb-4d4d-a71e-a1077e50fc50	PSU Cable (1.5m)	\N	2	\N	2	2000000000589	t	\N	\N
-f5e9939e-91d1-42a2-ad88-1ede57f2b053	PSU Cable (grey - 2m)	\N	2	\N	2	2000000000596	t	\N	\N
-0d6c3c35-02ec-4cb1-9251-83c88f6245f8	PSU Cable (2m)	\N	2	\N	2	2000000000602	t	\N	\N
+COPY public.core_thing (id, name, location_id, "subType_id", sublocation_id, type_id, barcode, labeled, designated_location_id, designated_sublocation_id, description) FROM stdin;
+beb09972-c099-4194-abd4-86d96126a827	XBox 360 Controller	2	15	2	3	\N	f	\N	\N	\N
+265b0f35-696d-4751-b8b3-ec260066ed0c	Philips Warm 60w light	5	\N	3	17	8718696577554	t	\N	\N	\N
+20317107-1c6e-41df-8887-a23ba85c1615	UTP Cable (0.5m)	\N	\N	\N	8	\N	f	\N	\N	\N
+21061901-5a60-4d85-9852-72197bb3a894	Kanex Lighning Cable	\N	8	\N	6	2000000000376	f	\N	\N	\N
+830208f6-0912-4f81-bdf9-312ac2edf178	Micro Usb (5-pin 0.25m)	2	18	2	6	2000000000338	f	5	5	\N
+1e5844be-78ab-4457-bbc6-d5ccd4351820	Ikea 10x AA batteries	5	\N	3	18	23050	f	\N	\N	\N
+29993f77-1d6f-48b3-93ab-2c478ddcdb8a	Powerball	5	\N	4	19		f	\N	\N	\N
+23b00d9b-751d-4af8-8cd4-9cdc9aad1ff9	USB Mini cable (1m)	\N	19	\N	6	2000000000369	f	5	5	\N
+cc2c4878-d62a-4815-8e0f-dd19670dcfdf	Samsung SSD 840 PRO box	2	\N	1	7	\N	f	\N	\N	\N
+8ad8223a-14e8-4138-8e6d-fba088bea52e	X-mini II	5	4	4	4		f	\N	\N	\N
+c3276ad6-14ee-4b87-ae65-dfca5f3637fd	Nikon MH-24 Battery Charger	2	\N	2	13	\N	f	\N	\N	\N
+85ab1d1b-3ef2-4003-9244-1e2ba3341eb0	Microsoft XBox 360 Wifi dock	2	16	2	3	\N	f	\N	\N	\N
+376a247f-a970-491c-ab1f-68bc2f2c4f57	EMU USB Midi Pouch	1	11	\N	9	\N	f	\N	\N	\N
+81759e2f-266e-4339-a769-21f16531d6a6	PSU Cable (2.5m)	2	2	2	2	2000000000244	t	\N	\N	\N
+60b77772-51c0-43c1-ad50-d2d4733047af	Midi Cable (6m)	5	\N	3	12	2000000000275	t	5	3	\N
+c6b7f042-080c-4903-95bc-f8b4276d1393	Proel XLR Cable (5m)	5	1	3	1	2000000000046	t	\N	\N	\N
+e0030d6b-0bfd-4a89-811e-6694f0aef7de	Plastic Bags	5	26	5	16		f	\N	\N	\N
+03ba330a-aeac-44ea-b1d1-8eb737d68bf0	Proel Midi Cable (4m)	26	\N	\N	12	2000000000282	t	5	3	\N
+3f8422a8-e502-4023-922b-a8c3a2084cc5	Apple Headphones (old)	2	14	2	11	\N	f	\N	\N	\N
+220cfb5c-c08f-4d27-864f-e4964dd58209	PSU Cable (2m)	\N	2	\N	2	2000000000213	t	\N	\N	\N
+3b546106-29dc-4493-a119-d7d585a47706	Double PSU Cable (2m)	\N	2	\N	2	2000000000220	t	\N	\N	\N
+017a4fd5-53c1-485a-bdb3-5c7b60d74ccf	sssnake midi cable (4m)	5	\N	3	12	2000000000299	t	5	3	\N
+05944d2a-0ce3-441b-8b82-f6ffcf07e1d1	Northpole headlight lead	\N	21	\N	16	7071875007686	t	\N	\N	\N
+51e2b769-9858-4c86-be65-f2bd3d6520a6	Locks	5	\N	4	25	\N	f	5	4	\N
+df9166e1-24ed-49d7-89e7-83803fa14ceb	JBL Clip 2	2	4	2	4	\N	f	\N	\N	\N
+c4402dc7-0f92-4dba-9415-b5fc3ed45665	Joby flexible tripod	2	17	\N	15	\N	f	\N	\N	\N
+7c5446c5-8e40-4277-8573-fde5bd81a191	Old Keys	5	\N	5	20		f	\N	\N	\N
+2c6c49fa-242f-409d-85e7-cf266fb3685b	VGA to MiniDisplay	2	\N	\N	10	\N	f	\N	\N	\N
+7bf4399e-9804-4ea8-b2d3-8f8af368d04e	Netgear 8-port Ethernet Hub (100 Mbps)	5	3	4	3	\N	f	\N	\N	\N
+428f72fe-7926-4cb1-adad-cff8cb377beb	TP-LINK TL-WN722N	5	22	4	3	2147356003903	f	\N	\N	\N
+311440f6-e267-4422-9636-8df7f7b8dc06	Gym Gloves	5	23	5	22		f	\N	\N	\N
+3232384c-3616-4850-86cc-5c84d2c7165d	3 port electric socket (no ground)	\N	24	\N	23		f	\N	\N	\N
+3527851f-6260-489d-aa6e-34fd02d1eab9	3 meter electric socket extension (no ground)	\N	25	\N	23		f	\N	\N	\N
+b08b1d6b-a58b-4f1d-a563-03043be48f60	UTP Cable (5m)	2	\N	2	8	\N	f	\N	\N	\N
+032a4577-aeb3-47f2-a8a0-776f5687838d	Micro Usb (5-pin 0.5m)	\N	18	\N	6	2000000000390	f	5	5	\N
+0cf8e945-d00f-4220-ae6f-ba7965a2e857	USB mini cable (0.5m)	\N	19	\N	6	2000000000383	f	5	5	\N
+38774dc5-6ea2-4c8e-a3a4-614949b82778	USB extension cable	\N	20	\N	6	2000000000345	t	5	5	\N
+be4ef97d-4772-4523-8f07-1a84e24f9148	Sentio iphone cable	2	8	2	6	2000000000321	f	5	5	\N
+347a0080-a0b0-4dd4-b0ab-36fbb5440522	USB type B cable	1	9	\N	6	2000000000352	t	5	4	\N
+6c934ac1-7a49-4131-a05c-afa89602150d	Proel XLR Cable (3m)	5	1	3	1	2000000000060	t	5	3	\N
+22ad324e-6030-450a-9f25-29458800d6db	Belden 8m XLR Cable	5	1	3	1	2000000000206	t	5	3	\N
+f0ea34fc-649c-4604-aa3b-58d8c53fe82c	Case Logic photo backpack	5	\N	5	14	\N	f	\N	\N	\N
+6a92511e-e505-4f1c-a37a-6409e7d84038	Proel XLR Cable (10m)	5	1	3	1	2000000000152	t	5	3	\N
+353dee8a-3562-47f0-8f22-591aa7a55cd9	Proel XLR Cable (3m)	5	1	3	1	2000000000077	t	5	3	\N
+1bf6ef46-55a6-41ac-aba9-a2dec2adddec	Proel XLR Cable (3m)	5	1	3	1	2000000000053	t	5	3	\N
+b11e600b-7931-4d9f-be24-7880c932861e	Proel XLR Cable (10m)	5	1	3	1	2000000000121	t	5	3	\N
+753ee03b-e393-4637-b36d-8babb5fdb0e5	Accu XLR Cable (20m)	24	1	7	1	2000000000138	t	24	7	\N
+cbcd1949-230f-4988-b3d0-9603c33cf2ed	Accu XLR Cable (20m)	24	1	6	1	2000000000114	t	24	6	\N
+fb00a1c2-e45a-432a-8be4-6bf722d85226	Memorabillia	5	\N	5	21		f	5	5	\N
+62569cb3-1943-41bb-a788-cd3f9ed5aa08	Proel XLR Cable (5m)	5	1	3	1	2000000000169	t	5	3	\N
+57d0fc9b-fbea-441a-bc9d-bf4a33ab0a52	Proel XLR Cable (5m)	5	1	3	1	2000000000183	t	5	3	\N
+3ef7ac3a-7a59-48e7-a546-3fb4f817217d	Small Clone Box	25	\N	8	26	683274010137	f	25	8	\N
+022623d7-4527-4e0a-a407-8e704927b751	MXR Boost Box	25	\N	8	26	710137031944	f	25	8	\N
+47f066b3-e990-4010-9974-bc07d7500d3e	Memory Boy Deluxe box	25	\N	8	26	683274011059	f	25	8	\N
+9553b9e1-1f7d-42a3-bf4b-194f3a96ae0e	CryBaby wah box	25	\N	8	26	710137017665	f	25	8	\N
+82a48823-d0ea-4d45-af79-a1daf3364b05	BOSS TU-2 box	25	\N	8	7	761294047224	f	25	8	\N
+181fa799-a2a2-4d30-a7aa-49b28c32bc1b	Sennheiser RS 180 Box	25	\N	8	7	615104170520	f	25	8	\N
+978fdd14-05bc-4812-9afe-d8aafe86f89a	Nikkor 50mm f/1.4G Box	25	\N	8	26	018202021822	f	25	8	\N
+ac047b3c-264d-4857-95d3-a1c569a595c3	AKAI MPK 25 box	25	\N	9	7	\N	f	25	9	\N
+78eaa927-3cc1-48ae-86a7-31c852c7ff97	Granite TS Cable (10m)	5	6	3	1	2000000000015	t	5	3	\N
+9739fb02-715e-4fd3-ade9-73f134be58d7	Proel TS Cable (3m)	5	6	3	1	2000000000022	t	5	3	\N
+404313bb-2792-4a7f-8352-89a703297848	Xiaomi Body comp box and receipt	\N	\N	\N	7	6934177707452	t	\N	\N	\N
+1ed86a10-9574-4e47-a3fe-0071b6e6cbb7	Ysis Naterial extra screws and poles (Club 3d)	5	\N	4	16	\N	f	5	4	\N
+7dd264cb-604f-4242-bed3-14dd665b13b1	Custom Audio Amp Tubes	5	27	4	29	\N	f	5	4	\N
+212b7ab2-aa2e-4dd0-b64f-e7152535c7ec	LED Magic Ball	28	\N	11	17	\N	f	28	11	\N
+acc56f6f-47ce-45d5-9b1f-fc6d17a847b0	DVI Cable	2	7	2	5	2000000000253	t	\N	\N	\N
+587836e2-7655-4240-969c-907eccacf2b4	Sennheiser Minijack TRS cable	5	13	3	1	2000000000178	t	5	3	\N
+5eef6a74-3a74-4883-85d3-3ed809c3c801	Ysis Naterial screen	25	\N	\N	30	\N	f	25	\N	\N
+e410753b-e798-46c5-a11b-28cdc1e27977	OEM TS Neutrik (2m)	27	6	\N	1	2000000000109	t	5	3	\N
+e9e808a2-4f81-4d94-beda-07be2e5149d6	USB type B cable (2m yellow)	5	9	3	6	2000000000406	t	5	5	\N
+f4719fee-f102-4ef4-a262-c79c9896b211	Nintento DMG-04	5	\N	4	27	2000000000695	t	\N	\N	\N
+d5c00ffe-2ba4-421d-b984-239b1da9a70d	PSU Cable (2.5m)	\N	2	\N	2	2000000000237	t	\N	\N	\N
+ff0dc50e-ee57-48a5-9b5e-081f6f74030c	UTP Cable (5m)	2	\N	2	8	2000000000475	t	\N	\N	\N
+dc0229a2-3e27-443a-a82d-ddc2a23cd1d4	USB type B cable	2	9	\N	6	2000000000314	t	5	5	\N
+e8a63e00-3bde-42ec-b3ac-3f5e03d195c0	USB type B cable	5	9	3	6	2000000000307	t	2	2	\N
+f7fa764f-99e1-48f5-9d26-964e7c983220	Fender TS Cable	5	6	3	1	2000000000084	t	5	3	\N
+26dcc1b9-fcfa-4b59-addc-519cb860c507	PSU Cable (1.5m)	\N	2	\N	2	2000000000619	t	\N	\N	\N
+8305502d-6824-43bc-bb3a-c22f06bb4c92	PSU Cable (1.5m)	\N	2	\N	2	2000000000626	t	\N	\N	\N
+1c424dcc-75d7-4c26-a1c0-cbc0d8c46fdf	DIsplay port cable (2m)	\N	30	\N	5	2000000000633	t	\N	\N	\N
+487a9978-27d5-4bc1-8ad1-d515a9a84708	Type C to DisplayPort cable (1.8m)	\N	31	\N	5	2000000000640	t	\N	\N	\N
+7bdfe976-9b17-4f51-a0a2-b0954ae1bd12	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000657	t	\N	\N	\N
+43b3a7af-4cff-4a83-a592-26681d44ac93	Prof low noise inst cable (2m TS)	27	6	\N	1	2000000000192	t	5	3	\N
+28498857-23f3-492d-a283-76b1b5a8fd61	VGA Cable (0.5m)	\N	12	\N	5	2000000000260	t	\N	\N	\N
+6091910d-33be-451e-9a73-46e523f28c63	Cordial XLR cable (15m)	\N	1	\N	1	2000000000497	t	\N	\N	\N
+5ae0ae41-9e3f-40aa-87ba-39ac1a94eb4d	Cordial XLR cable (15m)	\N	1	\N	1	2000000000510	t	\N	\N	\N
+7c4d5c6b-af99-4379-802c-e841b07ac019	SC The stage cable (15m)	\N	5	\N	1	2000000000534	t	\N	\N	\N
+217e4015-792c-4d96-9bba-d8ff279abc35	SC The Spirit cable (15m)	\N	28	\N	1	2000000000541	t	\N	\N	\N
+4cf1b8b9-a9e9-4257-acb9-f021acc05b67	HDMI Cable (2m)	\N	29	\N	5	2000000000558	t	\N	\N	\N
+a3124db2-9cc1-47c3-a654-bc00c5619f3b	HDMI Cable (1m)	\N	29	\N	5	2000000000565	t	\N	\N	\N
+10ade344-0c51-4ff7-acaf-9a375ae182d5	PSU Cable (2m)	\N	2	\N	2	2000000000572	t	\N	\N	\N
+59b8a868-08eb-4d4d-a71e-a1077e50fc50	PSU Cable (1.5m)	\N	2	\N	2	2000000000589	t	\N	\N	\N
+0d6c3c35-02ec-4cb1-9251-83c88f6245f8	PSU Cable (2m)	\N	2	\N	2	2000000000602	t	\N	\N	\N
+ba8ac1ce-fca8-4405-889a-1866113ebedb	Disney Old Comics	25	\N	10	28	\N	f	\N	\N	Αλμανάκο, Ντόναλτ, Μίκυ Μυστήριο, Κλασικά, Το βιβλίο των εξερευνητών
+e43beb99-6e20-4f8b-93a7-32c15ef45ea7	Proel XLR to TRS (2m)	\N	5	\N	1	2000000000664	t	\N	\N	\N
+fa8aa674-93a0-4400-9f04-f58908ca2213	Fender California Cable Red (3m)	\N	6	\N	1	2000000000688	t	\N	\N	\N
+f5e9939e-91d1-42a2-ad88-1ede57f2b053	PSU Cable (grey - 2m)	\N	2	\N	2	2000000000596	t	\N	\N	\N
+e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	HDMI Cable (1440p - 144hz - 2m)	\N	29	\N	5	2000000000671	t	\N	\N	\N
+ddea3c4f-b07a-499e-8854-806283608548	Cordial XLR cable (15m)	\N	1	\N	1	2000000000503	t	\N	\N	\N
+db97470b-0012-4ef6-8bb5-829bfbda8e1e	SC The stage cable (15m)	\N	5	\N	1	2000000000527	t	\N	\N	\N
 \.
 
 
@@ -1800,6 +1800,8 @@ COPY public.django_admin_log (id, action_time, object_id, object_repr, action_fl
 316	2021-06-04 23:01:32.771488+00	e43beb99-6e20-4f8b-93a7-32c15ef45ea7	Proel XLR to TRS (2m)	1	[{"added": {}}]	9	1
 317	2021-06-04 23:03:46.127885+00	e7b3ed13-acb3-4e0c-bd29-bf5d2224ebcf	HDMI Cable (1440p - 144hz - 2m)	1	[{"added": {}}]	9	1
 318	2021-06-04 23:10:57.929111+00	fa8aa674-93a0-4400-9f04-f58908ca2213	Fender California Cable Red (3m)	1	[{"added": {}}]	9	1
+319	2022-12-14 22:43:40.540624+00	ba8ac1ce-fca8-4405-889a-1866113ebedb	Disney Old Comics	2	[{"changed": {"fields": ["Name", "Description"]}}]	9	1
+320	2022-12-19 01:05:25.282117+00	5	TEST	3		4	1
 \.
 
 
@@ -1857,6 +1859,9 @@ COPY public.django_migrations (id, app, name, applied) FROM stdin;
 32	core	0003_location_system_field	2019-10-27 20:27:28.260313+00
 33	core	0004_auto_20191027_2036	2019-10-27 20:36:26.60325+00
 34	core	0005_remove_location_system_field	2019-10-28 11:02:23.741073+00
+35	auth	0012_alter_user_first_name_max_length	2022-10-21 01:40:49.552107+00
+36	sequences	0002_alter_sequence_last	2022-10-21 01:40:49.586214+00
+37	core	0006_thing_description_alter_thing_name	2022-12-14 22:42:23.893133+00
 \.
 
 
@@ -1896,6 +1901,12 @@ vf0il13g11mjxa23d73m32hdt0p11vky	MTk0YTE0NDU1YjZiZDZlYWUzN2ZlMmNhMDZjMTQ2MTFlMmN
 men3fvb6vyzxc3ouzc6zx0nfkxjuko17	YjNiMThkMTRkOTk1ZGQxOTlkYmE1OWUzZDM3MTVjM2I1Mzg1OWUxODp7ImVudGl0aWVzIjpbeyJuYW1lIjoiVVRQIENhYmxlICg1bSkiLCJiYXJjb2RlIjoiMjAwMDAwMDAwMDQ3NSIsInR5cGUiOiJVVFAgQ2FibGUiLCJsb2NhdGlvbiI6Miwic3VibG9jYXRpb24iOjIsImRlc2lnbmF0ZWRMb2NhdGlvbiI6bnVsbCwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjpudWxsfSx7Im5hbWUiOiJGZW5kZXIgVFMgQ2FibGUiLCJiYXJjb2RlIjoiMjAwMDAwMDAwMDA4NCIsInR5cGUiOiJBdWRpbyBDYWJsZSIsImxvY2F0aW9uIjoyLCJzdWJsb2NhdGlvbiI6MiwiZGVzaWduYXRlZExvY2F0aW9uIjpudWxsLCJkZXNpZ25hdGVkU3VibG9jYXRpb24iOm51bGx9LHsibmFtZSI6IlVTQiB0eXBlIEIgY2FibGUgKDJtIHllbGxvdykiLCJiYXJjb2RlIjoiMjAwMDAwMDAwMDQwNiIsInR5cGUiOiJVU0IgQ2FibGUiLCJsb2NhdGlvbiI6NSwic3VibG9jYXRpb24iOjMsImRlc2lnbmF0ZWRMb2NhdGlvbiI6NSwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjo1fSx7Im5hbWUiOiJPRU0gVFMgTmV1dHJpayAoMm0pIiwiYmFyY29kZSI6IjIwMDAwMDAwMDAxMDkiLCJ0eXBlIjoiQXVkaW8gQ2FibGUiLCJsb2NhdGlvbiI6NSwic3VibG9jYXRpb24iOjUsImRlc2lnbmF0ZWRMb2NhdGlvbiI6bnVsbCwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjpudWxsfV0sIl9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJjOGY1Y2JlZDA0MDU1Zjk3ODdjZjUxZDFhMjg2NmM4YjA0NjhiMzliIn0=	2021-04-20 10:22:05.19285+00
 d6facyd3fawlliwy7pv912nsc4x5qwsv	YzY5NjgwMjVhYTZmMzY1MzEzNDQxNjRlMjlmMDQ2ZWQ3ZDIwMTdjNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhOTQzZjk2NjEyMWUxMzU3ZmE5ODM5ZGIwM2UyMjdhNWZjYzgzOGZmIiwiZW50aXRpZXMiOlt7ImlkIjoiMzUzZGVlOGEtMzU2Mi00N2YwLThmMjItNTkxYWE3YTU1Y2Q5IiwibmFtZSI6IlByb2VsIFhMUiBDYWJsZSAoM20pIiwiYmFyY29kZSI6IjIwMDAwMDAwMDAwNzciLCJ0eXBlIjoiQXVkaW8gQ2FibGUiLCJsb2NhdGlvbiI6NSwic3VibG9jYXRpb24iOjMsImRlc2lnbmF0ZWRMb2NhdGlvbiI6NSwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjozfSx7ImlkIjoiNjI1NjljYjMtMTk0My00MWJiLWE3ODgtY2QzZjllZDVhYTA4IiwibmFtZSI6IlByb2VsIFhMUiBDYWJsZSAoNW0pIiwiYmFyY29kZSI6IjIwMDAwMDAwMDAxNjkiLCJ0eXBlIjoiQXVkaW8gQ2FibGUiLCJsb2NhdGlvbiI6NSwic3VibG9jYXRpb24iOjMsImRlc2lnbmF0ZWRMb2NhdGlvbiI6NSwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjozfSx7ImlkIjoiMWJmNmVmNDYtNTVhNi00MWFjLWFiYTktYTJkZWMyYWRkZGVjIiwibmFtZSI6IlByb2VsIFhMUiBDYWJsZSAoM20pIiwiYmFyY29kZSI6IjIwMDAwMDAwMDAwNTMiLCJ0eXBlIjoiQXVkaW8gQ2FibGUiLCJsb2NhdGlvbiI6NSwic3VibG9jYXRpb24iOjMsImRlc2lnbmF0ZWRMb2NhdGlvbiI6NSwiZGVzaWduYXRlZFN1YmxvY2F0aW9uIjozfV19	2021-05-27 23:32:05.946526+00
 ccyg1gidqs79ori1le164f2k71wzffxj	ZmE0MWUwOWY5NzRmOTRkYTdhNzcyYjU1OGRkZGIwYzNjODBkMDdmNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhOTQzZjk2NjEyMWUxMzU3ZmE5ODM5ZGIwM2UyMjdhNWZjYzgzOGZmIn0=	2021-06-11 21:06:15.341897+00
+0ao1ek6uyc7wscep2x9ig1de4qqvfwj9	ZmE0MWUwOWY5NzRmOTRkYTdhNzcyYjU1OGRkZGIwYzNjODBkMDdmNTp7Il9hdXRoX3VzZXJfaWQiOiIxIiwiX2F1dGhfdXNlcl9iYWNrZW5kIjoiZGphbmdvLmNvbnRyaWIuYXV0aC5iYWNrZW5kcy5Nb2RlbEJhY2tlbmQiLCJfYXV0aF91c2VyX2hhc2giOiJhOTQzZjk2NjEyMWUxMzU3ZmE5ODM5ZGIwM2UyMjdhNWZjYzgzOGZmIn0=	2022-10-28 02:59:59.679226+00
+959cwit7errl280boh29m1tti333ndhx	.eJxVjDkOwjAUBe_iGll24gUo6XMG62_GAeRIcVIh7k4ipYB2Zt57qwTrUtLaZE4jq6uy6vTLEOgpdRf8gHqfNE11mUfUe6IP2_QwsbxuR_t3UKCVbU1iozeQzcUh9wHYGY90jj1mZzlb7HIgBskcAYIPAn4jXjKZjpyg-nwBDGM5bw:1ovRhK:ly2q7Z--06n59IlSYzDSE41KUk8puxntkbXD0BRpRtU	2022-11-30 23:20:02.997745+00
+nyntqwuymqy4m3f7uaawcqm4o5uz0746	.eJxVjDkOwjAUBe_iGll24gUo6XMG62_GAeRIcVIh7k4ipYB2Zt57qwTrUtLaZE4jq6uy6vTLEOgpdRf8gHqfNE11mUfUe6IP2_QwsbxuR_t3UKCVbU1iozeQzcUh9wHYGY90jj1mZzlb7HIgBskcAYIPAn4jXjKZjpyg-nwBDGM5bw:1p1A2F:sE3kU6wch-IGd69btDYsyG-s7rKvbKTNtY13LmGG6s8	2022-12-16 17:41:15.859771+00
+7ibel6lsmo6xmvn9e9o5dnuwqmdsbu45	.eJxVjDkOwjAUBe_iGll24gUo6XMG62_GAeRIcVIh7k4ipYB2Zt57qwTrUtLaZE4jq6uy6vTLEOgpdRf8gHqfNE11mUfUe6IP2_QwsbxuR_t3UKCVbU1iozeQzcUh9wHYGY90jj1mZzlb7HIgBskcAYIPAn4jXjKZjpyg-nwBDGM5bw:1p6fX0:PIkDGy2ITanUS5JP6PP6Zf_8MKYfPjwTuRVWuPpKwcI	2022-12-31 22:19:46.410017+00
+20cbbncxx59icublgm3akgjfscv82k2v	.eJxVjDkOwjAUBe_iGll24gUo6XMG62_GAeRIcVIh7k4ipYB2Zt57qwTrUtLaZE4jq6uy6vTLEOgpdRf8gHqfNE11mUfUe6IP2_QwsbxuR_t3UKCVbU1iozeQzcUh9wHYGY90jj1mZzlb7HIgBskcAYIPAn4jXjKZjpyg-nwBDGM5bw:1p9mgj:KFr2ImvRA4m-_56Qxu1g6DW4zT__b73qCI8tx2k2-H8	2023-01-09 12:34:41.922038+00
+0lxfrhwk99qmgkwg3bsnchd9nl6i3txn	.eJxVjDkOwjAUBe_iGll24gUo6XMG62_GAeRIcVIh7k4ipYB2Zt57qwTrUtLaZE4jq6uy6vTLEOgpdRf8gHqfNE11mUfUe6IP2_QwsbxuR_t3UKCVbU1iozeQzcUh9wHYGY90jj1mZzlb7HIgBskcAYIPAn4jXjKZjpyg-nwBDGM5bw:1pZBiX:RoT8K2UpyyT7TH56sxCVGCCLSJ0urKxMf7FHBTrVhxE	2023-03-20 14:21:33.232254+00
 \.
 
 
@@ -1904,7 +1915,7 @@ ccyg1gidqs79ori1le164f2k71wzffxj	ZmE0MWUwOWY5NzRmOTRkYTdhNzcyYjU1OGRkZGIwYzNjODB
 --
 
 COPY public.sequences_sequence (name, last) FROM stdin;
-tidy	68
+tidy	69
 \.
 
 
@@ -2038,7 +2049,7 @@ SELECT pg_catalog.setval('public.core_type_id_seq', 30, true);
 -- Name: django_admin_log_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.django_admin_log_id_seq', 318, true);
+SELECT pg_catalog.setval('public.django_admin_log_id_seq', 320, true);
 
 
 --
@@ -2052,7 +2063,7 @@ SELECT pg_catalog.setval('public.django_content_type_id_seq', 17, true);
 -- Name: django_migrations_id_seq; Type: SEQUENCE SET; Schema: public; Owner: tidy
 --
 
-SELECT pg_catalog.setval('public.django_migrations_id_seq', 34, true);
+SELECT pg_catalog.setval('public.django_migrations_id_seq', 37, true);
 
 
 --
