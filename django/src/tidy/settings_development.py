@@ -7,7 +7,8 @@ ALLOWED_HOSTS = ['*']
 # INTERNAL_IPS = [os.environ.get('HOST_IP')]
 # INTERNAL_IPS = [socket.gethostbyname('host.docker.internal'), '127.0.0.1']
 
-WEBPACK_DEV_HOST = "http://localhost:9101"
+# REACT_DEV_HOST = "http://localhost:5173/"
+REACT_DEV_HOST = "http://localhost:9101/"
 
 DATABASES = {
     'default': {

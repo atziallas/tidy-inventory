@@ -1,3 +1,25 @@
 How to dump database for docker entrypoint sql script:
 pg_dump -U tidy -W tidy > /backups/current.sql
 pg_dump -U tidy -W tidy > /backups/25April23.sql
+pg_dump -U tidy -W tidy > /backups/01-05-2024-trad.sql
+
+pg_restore -U tidy /backups/01-05-2024.sql
+pg_restore -U tidy -W /backups/current.sql
+
+
+Custom format: (most flexible? - works with pg_restore)
+pg_dump -Fc -U tidy -W tidy > 01-05-2024.dump
+
+THIS WORKED:
+pg_dump -Fc -W -U tidy tidy > /backups/01-05-2024.dump
+
+To restore from the custom format:
+pg_restore -d tidy --clean --create db.dump
+pg_restore -d tidy --clean --create 01-05-2024.dump
+pg_restore -d tidy -U tidy -W --clean --create /backups/01-05-2024.dump
+pg_restore -d tidy -U tidy -W --clean --if-exists /backups/01-05-2024.dump
+
+THIS WORKED:
+pg_restore -d tidy -U tidy -W --clean /backups/01-05-2024.dump
+
+pg_restore -d tidy -U tidy -W /backups/01-05-2024.dump

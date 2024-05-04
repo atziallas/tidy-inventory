@@ -1,13 +1,15 @@
-version: "3.7"
+# version: "3.7"
 services:
   pgadmin:
-    image: dpage/pgadmin4
+    image: dpage/pgadmin4:2024-04-29-1
     ports:
       - "8181:80"
     environment:
       - PGADMIN_DEFAULT_EMAIL=tidy@domain.com
       - PGADMIN_DEFAULT_PASSWORD=tidypass
-    profiles: ["db_admin"]
+    # profiles: ["db_admin"]
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
   db:
     image: postgres:12.6
     ports:
@@ -51,3 +53,4 @@ volumes:
   node_modules:
   dist:
   postgres:
+  pgadmin-data:
