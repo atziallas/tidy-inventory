@@ -6,9 +6,8 @@
     "configurations": [
         {
             "name": "Python: Django",
-            "type": "python",
+            "type": "debugpy",
             "request": "launch",
-            // "program": "${workspaceFolder}/manage.py",
             "program": "/code/manage.py",
             "args": [
                 "runserver_plus",
@@ -19,7 +18,7 @@
         },
         {
             "name": "Python: Remote Attach",
-            "type": "python",
+            "type": "debugpy",
             "request": "attach",
             "connect": {
                 "host": "localhost",
