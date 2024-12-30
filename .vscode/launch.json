@@ -6,7 +6,7 @@
     "configurations": [
         {
             "name": "Run Django",
-            "type": "python",
+            "type": "debugpy",
             "request": "attach",
             "pathMappings": [
                 {

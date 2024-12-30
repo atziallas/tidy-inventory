@@ -1,4 +1,4 @@
-FROM python:3.8.2-alpine3.11
+FROM python:3.13.1-alpine3.21
 
 RUN apk add --no-cache libxml2-dev libxslt-dev libc-dev g++ freetype-dev jpeg-dev gcc jpeg-dev zlib-dev libpq fontconfig
 RUN apk add --no-cache --virtual .build-deps \
