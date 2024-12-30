@@ -94,13 +94,14 @@ def index(request):
     template = loader.get_template("core/search.html")
     return HttpResponse(template.render({"initialState": json.dumps(state)}, request))
 
-
+@login_required
 def filter(request):
     admin = ThingAdmin(Thing, AdminSite())
     response_dict = filter_and_convert(admin, request)
     return HttpResponse(json.dumps(response_dict), content_type="application/json")
 
 
+@login_required
 def action(request):
     parsed_request = json.loads(request.body)
     admin = ThingAdmin(Thing, AdminSite())
@@ -132,6 +133,7 @@ def action(request):
         return HttpResponse(json.dumps(response_dict), content_type="application/json")
 
 
+@login_required
 def transfer(request):
     parsed_request = json.loads(request.body)
     for thing_id in parsed_request["selections"]:
@@ -149,6 +151,7 @@ def transfer(request):
     return HttpResponse(json.dumps(response_dict), content_type="application/json")
 
 
+@login_required
 def designate(request):
     parsed_request = json.loads(request.body)
     for thing_id in parsed_request["selections"]:

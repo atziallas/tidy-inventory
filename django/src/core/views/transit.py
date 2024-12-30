@@ -2,6 +2,7 @@ import json
 import traceback
 
 from django.core.exceptions import ObjectDoesNotExist
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.template import loader
 
@@ -10,6 +11,7 @@ from lib.converters import entity_objects_as_redux_object
 from lib.utils import list_contains, get_or_init
 
 
+@login_required
 def transit_index(request):
     locations = entity_objects_as_redux_object(Location, 'locationsByid', 'locationsAllIds')
     all_sublocations = Sublocation.objects.all()
@@ -41,6 +43,7 @@ def transit_index(request):
     return HttpResponse(template.render({'initialState': json.dumps(state)}, request))
 
 
+@login_required
 def search_barcode(request):
     parsed_request = json.loads(request.body)
     entities_all_ids = get_or_init(request.session, 'entities', [])
@@ -57,26 +60,10 @@ def search_barcode(request):
             entities_all_ids.append(entity)
             request.session['entities'] = entities_all_ids
 
-            # locations = {
-            #     'location': field_to_json(thing, 'location'),
-            #     'sublocation': {
-            #         **field_to_json(thing, 'sublocation'),
-            #         **({'location': thing.location.id} if thing.location is not None else {})
-            #     }}
-            #
-            # designated_locations = {
-            #     'location': field_to_json(thing, 'designated_location'),
-            #     'sublocation': {
-            #         **field_to_json(thing, 'designated_sublocation'),
-            #         **({'location': thing.designated_location.id} if thing.designated_location is not None else {})
-            #     }}
-
             response_dict = {
                 'result': 'found',
                 'state': {
                     'entities': entities_all_ids,
-                    # 'locations': locations,
-                    # 'designatedLocations': designated_locations
                 }
             }
         except ObjectDoesNotExist:
@@ -94,6 +81,7 @@ def search_barcode(request):
     return HttpResponse(json.dumps(response_dict), content_type='application/json')
 
 
+@login_required
 def transfer(request):
     parsed_request = json.loads(request.body)
     entities = get_or_init(request.session, 'entities', [])
@@ -115,6 +103,7 @@ def transfer(request):
     return HttpResponse(json.dumps(response_dict), content_type='application/json')
 
 
+@login_required
 def designate(request):
     parsed_request = json.loads(request.body)
     entities = get_or_init(request.session, 'entities', [])
@@ -135,7 +124,7 @@ def designate(request):
     }
     return HttpResponse(json.dumps(response_dict), content_type='application/json')
 
-
+@login_required
 def removeBarcode(request):
     entityId = json.loads(request.body)['entityId']
     if 'entities' not in request.session:
@@ -153,18 +142,6 @@ def removeBarcode(request):
     }
     return HttpResponse(json.dumps(response), content_type='application/json')
 
-
-# def to_redux_transit_entity(thing):
-#     entity = {
-#         'name': thing.name,
-#         'barcode': thing.barcode,
-#         'type': thing.type.name if thing.type else None,
-#         'location': thing.location.name if thing.location else None,
-#         'sublocation': thing.sublocation.name if thing.sublocation else None,
-#         'designatedLocation': thing.designated_location.name if thing.designated_location else None,
-#         'designatedSublocation': thing.designated_sublocation.name if thing.designated_sublocation else None
-#     }
-#     return entity
 
 def to_redux_transit_entity(thing):
     entity = {
