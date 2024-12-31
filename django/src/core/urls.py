@@ -5,6 +5,7 @@ from django.contrib.auth.views import LogoutView, LoginView
 
 urlpatterns = [
     path('', dashboard.index, name='browse'),
+    path('up', search.health, name='health'),
     path('browse', search.index, name='browse'),
     # path('location', views.locations, name='locations'),
     path('filter', search.filter, name='filter'),

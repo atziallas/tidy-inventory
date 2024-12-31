@@ -87,6 +87,10 @@ class ThingAdmin(ModelAdmin):
     unlabel.short_description = "Unlabel"
 
 
+
+def health(request):
+    return HttpResponse("OK", status=200)
+
 @login_required
 def index(request):
     admin = ThingAdmin(Thing, AdminSite())
