@@ -5,3 +5,4 @@ venv
 webpack-stats.json
 notez.txt
 .vagrant
+secret_notes

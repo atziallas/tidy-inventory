@@ -11,11 +11,11 @@ RUN apk add --no-cache --virtual .build-deps \
     && apk del --no-cache .build-deps
 
 COPY ./src/fonts /usr/share/fonts
-#RUN fc-cache -f
 RUN mkdir /code
 WORKDIR /code
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./src .
-RUN chmod +x start.sh
+EXPOSE 80
+CMD ["python", "-m", "gunicorn", "-c", "/code/gunicorn/config.py", "tidy.asgi:application"]
 
