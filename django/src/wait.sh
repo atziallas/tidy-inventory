@@ -14,4 +14,8 @@ do
 	sleep 1s
 done
 echo "Database is accepting connections"
-python manage.py runserver_plus 0.0.0.0:8000
+
+# python manage.py runserver_plus 0.0.0.0:8000
+# run the command that the script accepted as argument
+exec "$@"
+

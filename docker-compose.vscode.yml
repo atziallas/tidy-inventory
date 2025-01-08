@@ -39,9 +39,10 @@ services:
     build: ./django
     image: tidy-django
     tty: true
-    # entrypoint: [ "./start.sh" ]
+    # entrypoint: ["./wait.sh", "python", "manage.py", "runserver_plus", "0.0.0.0:8000"]
     ports:
       - "8000:8000"
+      - "80:80"
       - "3000:3000"
     volumes:
       - ./django/src:/code
