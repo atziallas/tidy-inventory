@@ -7,7 +7,7 @@ image: atziallas/tidy-django
 # Deploy to these servers.
 servers:
   web:
-    - 116.203.203.104
+    - tziallas.net
   # job:
   #   hosts:
   #     - 192.168.0.1
@@ -88,8 +88,8 @@ ssh:
 accessories:
   db:
     image: postgres:12.6
-    host: 116.203.203.104
-    port: 5432
+    host: tziallas.net
+    port: "127.0.0.1:5432:5432"
     env:
       secret:
         - POSTGRES_USER
@@ -102,7 +102,7 @@ accessories:
       - postgres:/var/lib/postgresql/data/
   pgadmin:
     image: dpage/pgadmin4:2024-04-29-1
-    host: 116.203.203.104
+    host: tziallas.net
     port: "8181:80"
     env:
       secret:

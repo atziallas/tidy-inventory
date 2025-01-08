@@ -9,7 +9,7 @@ status=1
 until [ $status -eq 0 ]
 do
 	echo "Checking if database is up"
-	nc -zvw1 db 5432
+	nc -zvw1 $DB_HOST 5432
 	status=${?}
 	sleep 1s
 done
