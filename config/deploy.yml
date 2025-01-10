@@ -38,6 +38,8 @@ builder:
   arch: amd64
   dockerfile: django/Dockerfile
   context: "./django"
+  # local: false
+  # remote: ssh://root@tziallas.net
   # Pass in additional build args needed for your Dockerfile.
   # args:
   #   RUBY_VERSION: <%= File.read('.ruby-version').strip %>
