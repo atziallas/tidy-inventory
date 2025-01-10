@@ -3,6 +3,8 @@ import os
 SECRET_KEY = os.environ['SECRET_KEY']
 DEBUG = False
 ALLOWED_HOSTS = [os.environ['ALLOWED_HOST']]
+SECURE_SSL_REDIRECT = True
+SECURE_REDIRECT_EXEMPT = [r'^up/$']
 
 DATABASES = {
     'default': {
