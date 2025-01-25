@@ -1,26 +1,20 @@
 # version: "3.7"
 services:
-  pgadmin:
-    image: dpage/pgadmin4:2024-04-29-1
+  django:
+    build: ./django
+    image: tidy-django
+    tty: true
+    command: ["./wait.sh", "python", "manage.py", "runserver_plus", "0.0.0.0:8000"]
     ports:
-      - "8181:80"
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=tidy@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=tidypass
-    # profiles: ["db_admin"]
+      - "8000:8000"
+      - "3000:3000"
     volumes:
-      - pgadmin-data:/var/lib/pgadmin
-  db:
-    image: postgres:12.6
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres:/var/lib/postgresql/data/
-      - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-      - ./db/backups:/backups
+      - ./django/src:/code
     environment:
-      - POSTGRES_USER=tidy
-      - POSTGRES_PASSWORD=tidypass
+      - DJANGO_CONFIGURATION=dev
+      - DB_HOST=db
+    depends_on:
+      - db
   node:
     build: ./node
     image: tidy-node
@@ -33,21 +27,27 @@ services:
     volumes:
       - ./node/src:/code/
       - node_modules:/code/node_modules
-  django:
-    build: ./django
-    image: tidy-django
-    tty: true
-    entrypoint: ["./wait.sh", "python", "manage.py", "runserver_plus", "0.0.0.0:8000"]
+  db:
+    image: postgres:12.6
     ports:
-      - "8000:8000"
-      - "3000:3000"
+      - "5432:5432"
     volumes:
-      - ./django/src:/code
+      - postgres:/var/lib/postgresql/data/
+      - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
+      - ./db/backups:/backups
     environment:
-      - DJANGO_CONFIGURATION=dev
-      - DB_HOST=db
-    depends_on:
-      - db
+      - POSTGRES_USER=tidy
+      - POSTGRES_PASSWORD=tidypass
+  pgadmin:
+    image: dpage/pgadmin4:2024-04-29-1
+    ports:
+      - "8181:80"
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=tidy@domain.com
+      - PGADMIN_DEFAULT_PASSWORD=tidypass
+    # profiles: ["db_admin"]
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
 
 volumes:
   node_modules:

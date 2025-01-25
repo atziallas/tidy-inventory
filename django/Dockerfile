@@ -16,6 +16,7 @@ WORKDIR /code
 COPY requirements.txt ./
 RUN pip install --no-cache-dir -r requirements.txt
 COPY ./src .
+RUN mkdir /logs
 EXPOSE 80
 CMD ["./wait.sh", "python", "-m", "gunicorn", "-c", "/code/gunicorn/config.py", "tidy.asgi:application"]
 

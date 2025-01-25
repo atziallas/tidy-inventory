@@ -1,62 +1,30 @@
-version: "3.7"
 services:
-  pgadmin:
-    image: dpage/pgadmin4:2024-04-29-1
-    ports:
-      - "8181:80"
-    environment:
-      - PGADMIN_DEFAULT_EMAIL=tidy@domain.com
-      - PGADMIN_DEFAULT_PASSWORD=tidypass
-    profiles:
-      - "db_admin"
-    volumes:
-      - pgadmin-data:/var/lib/pgadmin
-  db:
-    image: postgres:12.6
-    ports:
-      - "5432:5432"
-    volumes:
-      - postgres:/var/lib/postgresql/data/
-      - ./db/initdb.sql:/docker-entrypoint-initdb.d/initdb.sql
-      - ./db/backups:/backups
-    environment:
-      - POSTGRES_USER=tidy
-      - POSTGRES_PASSWORD=tidypass
-  node:
-    build: ./node
-    image: tidy-node
-    tty: true
-    command: ["npm", "run", "debug"]
-    ports:
-      - "8888:8888"
-      - "9101:9101"
-      - "9000:9000"
-    volumes:
-      - ./node/src:/code/
-      - node_modules:/code/node_modules
-      - node_vscode_extensions:/root/.vscode-server
   django:
-    build: ./django
-    image: tidy-django
-    tty: true
-    # entrypoint: ["./wait.sh", "python", "manage.py", "runserver_plus", "0.0.0.0:8000"]
-    ports:
-      - "8000:8000"
-      - "80:80"
-      - "3000:3000"
+    extends:
+      file: docker-compose.yml
+      service: django 
+    command: ["tail", "-f", "/dev/null"]
+    # command: ["./wait.sh", "python", "-m", "gunicorn", "-c", "/code/gunicorn/config.py", "tidy.asgi:application"]
     volumes:
-      - ./django/src:/code
       - django_vscode_extensions:/root/.vscode-server
-
-    environment:
-      - DJANGO_CONFIGURATION=dev
-      - DB_HOST=db
-    depends_on:
-      - db
-
+  node:
+    extends:
+      file: docker-compose.yml
+      service: node 
+    volumes:
+      - node_vscode_extensions:/root/.vscode-server
+  db:
+    extends:
+      file: docker-compose.yml
+      service: db 
+  pgadmin:
+    extends:
+      file: docker-compose.yml
+      service: pgadmin 
 volumes:
   node_modules:
-  django_vscode_extensions:
-  node_vscode_extensions:
   dist:
   postgres:
+  pgadmin-data:
+  django_vscode_extensions:
+  node_vscode_extensions:
