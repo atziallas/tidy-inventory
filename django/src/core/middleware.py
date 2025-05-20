@@ -1,10 +1,12 @@
 import json
+import os
 from django.http import HttpResponse
 import logging
 from django.conf import settings
 
 requestLogger = logging.getLogger('errors')
 requestLogger.setLevel(logging.INFO)
+os.makedirs(os.path.dirname(settings.LOG_DIR), exist_ok=True)
 
 requestHandler = logging.handlers.RotatingFileHandler(settings.LOG_DIR+'headers.log', maxBytes=500000, backupCount=2)
 requestHandler.setFormatter(logging.Formatter("\n%(asctime)s - %(levelname)s - %(message)s"))

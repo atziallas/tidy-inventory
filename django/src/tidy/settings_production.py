@@ -17,3 +17,5 @@ DATABASES = {
         'PORT': '5432'
     }
 }
+
+STATIC_URL = "https://static.tziallas.net/tidy"
