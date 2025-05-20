@@ -19,7 +19,7 @@ servers:
 # Note: If using Cloudflare, set encryption mode in SSL/TLS setting to "Full" to enable CF-to-app encryption.
 proxy:
   ssl: true
-  host: tidy.tziallas.net
+  host: tidy-demo.tziallas.net
   # Proxy connects to your container on port 80 by default.
   # app_port: 3000
 
@@ -50,7 +50,7 @@ env:
   clear:
     DB_HOST: tidy-inventory-db
     DJANGO_CONFIGURATION: prod
-    ALLOWED_HOST: tidy.tziallas.net
+    ALLOWED_HOST: tidy-demo.tziallas.net
   secret:
     - POSTGRES_USER
     - POSTGRES_PASSWORD
@@ -104,11 +104,20 @@ accessories:
       - postgres:/var/lib/postgresql/data/
   pgadmin:
     image: dpage/pgadmin4:2024-04-29-1
-    host: tziallas.net
-    port: "8181:80"
+    host: tidy-demo.tziallas.net
+    port: "8181:8181"
     env:
       secret:
         - PGADMIN_DEFAULT_PASSWORD
+  static:
+    image: atziallas/tidy-nginx
+    host: tziallas.net
+    port: "80:80"
+    proxy:
+      ssl: true
+      host: static.tziallas.net
+    # directories:
+    #   - static:/usr/share/nginx/html
     
 #   redis:
 #     image: valkey/valkey:8
