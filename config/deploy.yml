@@ -104,20 +104,12 @@ accessories:
       - postgres:/var/lib/postgresql/data/
   pgadmin:
     image: dpage/pgadmin4:2024-04-29-1
-    host: tidy-demo.tziallas.net
+    host: tziallas.net
     port: "8181:8181"
     env:
       secret:
         - PGADMIN_DEFAULT_PASSWORD
-  static:
-    image: atziallas/tidy-nginx
-    host: tziallas.net
-    port: "80:80"
-    proxy:
-      ssl: true
-      host: static.tziallas.net
-    # directories:
-    #   - static:/usr/share/nginx/html
+
     
 #   redis:
 #     image: valkey/valkey:8

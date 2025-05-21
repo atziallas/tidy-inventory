@@ -2,8 +2,10 @@
 docker compose up -d node
 docker compose exec node npm run build
 cp node/src/dist/* django/src/core/static/core/assets
-cp -R django/src/core/static/core nginx-static/tidy
 
-# for when using a separate static site deployment
-# rm -r ../tziallas.net_static/tidy/*
-# cp -R django/src/core/static/ ../tziallas.net-static/static/tidy
+# when using the deploy.yml inside nginx-static folder
+# cp -R django/src/core/static/core nginx-static/tidy
+
+# when using separate static site deployment for all tziallas.net subdomains
+rm -rf ../tziallas.net-static/static/tidy
+cp -R django/src/core/static/ ../tziallas.net-static/static/tidy
