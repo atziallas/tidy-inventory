@@ -1,0 +1,12 @@
+build image:
+docker image build -t tidy-nginx .
+
+docker image build -t atziallas/tidy-nginx .
+docker push atziallas/tidy-nginx
+
+get nginx config:
+docker run --rm --entrypoint=cat tidy-nginx /etc/nginx/nginx.conf > nginx-static/nginx.conf
+
+
+run the container:
+docker run --name tidy-nginx  -d tidy-nginx
