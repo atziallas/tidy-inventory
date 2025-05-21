@@ -34,6 +34,8 @@ import {
   TRANSFER,
   FILE_DOWNLOADED,
   fileDownloaded,
+  ACTION_BLOCKED,
+  actionBlocked,
 } from "../../common/actions/actions";
 import { timeAndDisplayMessages } from "../../common/sagas/messages";
 import { getEntity, getEntityIdByBarcode } from "../reducers/entities";
@@ -50,8 +52,8 @@ function* doAction() {
   const state = yield select();
   const selectedAction = yield select(getSelectedAction);
   if (selectedAction === "") {
-    // yield delay(800);
-    // yield put(hideLoader());
+    yield delay(400);
+    yield put(actionBlocked());
     return;
   }
   const response = yield call(Api.doAction, state);
@@ -111,7 +113,19 @@ export function* transfer() {
     yield select(getSublocation),
     yield select(getFiltersAndSorting)
   );
-  yield put(updateEntities(json));
+  if (json.error) {
+    const messages = [
+      {
+        message: "This action is not allowed in demo mode!",
+        show: false,
+        tags: ["error"],
+      },
+    ];
+    yield put(actionBlocked());
+    yield call(timeAndDisplayMessages, messages);
+  } else {
+    yield put(updateEntities(json));
+  }
 }
 
 export function* designate() {
@@ -122,7 +136,19 @@ export function* designate() {
     yield select(getDesignatedSublocation),
     yield select(getFiltersAndSorting)
   );
-  yield put(updateEntities(json));
+  if (json.error) {
+    const messages = [
+      {
+        message: "This action is not allowed in demo mode!",
+        show: false,
+        tags: ["error"],
+      },
+    ];
+    yield put(actionBlocked());
+    yield call(timeAndDisplayMessages, messages);
+  } else {
+    yield put(updateEntities(json));
+  }
 }
 
 function* relocate() {
@@ -252,17 +278,21 @@ function* toggleLoaderWatcher() {
       DO_ACTION,
       UPDATE_ENTITIES,
       FILE_DOWNLOADED,
+      ACTION_BLOCKED,
     ]);
     const selectedAction = yield select(getSelectedAction);
-    if (selectedAction !== "") {
-      if (action.type !== UPDATE_ENTITIES && action.type !== FILE_DOWNLOADED) {
-        count++;
-        yield put(showLoader());
-      } else {
-        count--;
-        if (count === 0) yield put(hideLoader());
-      }
+    if (
+      action.type !== UPDATE_ENTITIES &&
+      action.type !== FILE_DOWNLOADED &&
+      action.type !== ACTION_BLOCKED
+    ) {
+      count++;
+      yield put(showLoader());
+    } else {
+      count--;
+      if (count === 0) yield put(hideLoader());
     }
+    console.log(count);
   }
 }
 

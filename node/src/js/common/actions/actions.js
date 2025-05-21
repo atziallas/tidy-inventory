@@ -24,9 +24,14 @@ export const SCANNED_BARCODE = 'SCANNED_BARCODE'
 export const BARCODE_CHANGED = 'BARCODE_CHANGED'
 export const CLEAR_BARCODE = 'CLEAR_BARCODE'
 export const FILE_DOWNLOADED = 'FILE_DOWNLOADED'
+export const ACTION_BLOCKED = 'ACTION_BLOCKED'
 
 export const fileDownloaded = () => ({
     type: FILE_DOWNLOADED,
+})
+
+export const actionBlocked = () => ({
+    type: ACTION_BLOCKED,
 })
 
 export const transfer = () => ({

@@ -68,7 +68,8 @@
                         <a href="{% url 'logout' %}">Logout</a>
                     </div>
                 {% else %}
-                    <div style="align-self: end;">Welcome, new user. Please log in.</div>
+                    {% comment %} <div style="align-self: end;">Welcome, new user. Please log in.</div> {% endcomment %}
+                    <div style="align-self: end;">Demo mode</div>
                 {% endif %}
             </div>
         </div>

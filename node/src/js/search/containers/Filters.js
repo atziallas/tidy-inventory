@@ -11,7 +11,7 @@ import {getArchiveShown} from "../../common/reducers/messages";
 const Filters = ({filters, getLookup, getFilterHandler, showArchive, toggleArchive}) =>
     <Fragment>
         <div onClick={toggleArchive(showArchive)} style={{cursor: 'pointer', margin: '16px 0px 8px 0px'}}>
-            <img style={{'width': '31px', marginRight: '6px'}} src={history}/>Archive
+            <img style={{'width': '31px', marginRight: '6px'}} src={history}/>Past Events
         </div>
         {
             filters.map(filter => (

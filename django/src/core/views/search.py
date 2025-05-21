@@ -8,6 +8,7 @@ from django.contrib.messages import get_messages
 from django.db.models import When, Value, Case, FloatField, OuterRef, Subquery
 from django.db.models.functions import Cast
 from django.http import FileResponse, HttpResponse
+from django.shortcuts import redirect
 from django.template import loader
 
 from core.models import Thing, Location, Sublocation
@@ -86,7 +87,8 @@ class ThingAdmin(ModelAdmin):
     def get_actions(self, request):
         actions = super().get_actions(request)
         if settings.DEMO_MODE:
-            del actions["delete_selected"]
+            if "delete_selected" in actions:
+                del actions["delete_selected"]
             del actions["generate_barcode"]
             del actions["unlabel"]
         return actions
@@ -101,23 +103,26 @@ def health(request):
     return HttpResponse("OK", status=200)
 
 
-@login_required
 def index(request):
+    if not request.user.is_authenticated and not settings.DEMO_MODE:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     admin = ThingAdmin(Thing, AdminSite())
     state = create_entities_json(admin, request)
     template = loader.get_template("core/search.html")
     return HttpResponse(template.render({"initialState": json.dumps(state)}, request))
 
 
-@login_required
 def filter(request):
+    if not request.user.is_authenticated and not settings.DEMO_MODE:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     admin = ThingAdmin(Thing, AdminSite())
     response_dict = filter_and_convert(admin, request)
     return HttpResponse(json.dumps(response_dict), content_type="application/json")
 
 
-@login_required
 def action(request):
+    if not request.user.is_authenticated and not settings.DEMO_MODE:
+        return redirect(f"{settings.LOGIN_URL}?next={request.path}")
     parsed_request = json.loads(request.body)
     request_action = parsed_request["selectedAction"]
     admin = ThingAdmin(Thing, AdminSite())
