@@ -36,7 +36,6 @@ def print_barcode(modeladmin, request, queryset):
 
     # the template text and barcode cells pattern is a bit convoluted
     # so for now I use just this to easily port to another template
-    # the sticker labels template, doesnt have  
     barcode_pos = [
         [0, 0], [0, 4], [0, 8],
         [2, 2], [2, 6], [2, 10],

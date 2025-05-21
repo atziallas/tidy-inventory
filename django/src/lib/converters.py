@@ -75,13 +75,6 @@ def json_choices(filter, json_choice_creator):
     }
 
 
-# def json_choices(filter, json_choice):
-#     choices = []
-#     for choice in filter.lookup_choices:
-#         choices.append(json_choice(choice, filter))
-#     return choices
-
-
 def json_dependant_choice_creator(choice, filter):
     return {
         # 'id': str(choice[0]),

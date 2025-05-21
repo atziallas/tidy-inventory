@@ -119,16 +119,25 @@ def filter(request):
 @login_required
 def action(request):
     parsed_request = json.loads(request.body)
-    admin = ThingAdmin(Thing, AdminSite())
     request_action = parsed_request["selectedAction"]
+    admin = ThingAdmin(Thing, AdminSite())
+
+    if settings.DEMO_MODE:
+        if request_action != "test" and request_action != "print_barcode":
+            response_dict = {
+                **filter_and_convert(ThingAdmin(Thing, AdminSite()), request),
+                "messages": [{"message": "Illegal Action! This is demo mode.", "tags": ["error"], "show": True}],
+            }
+            return HttpResponse(json.dumps(response_dict), content_type="application/json")
+
     action = admin.get_action(request_action)
     qs = admin.model.objects.filter(pk__in=parsed_request["selections"])
     result = action[0](admin, request, qs)
-    messages = []
+    transformed_messages = []
     admin_messages = get_messages(request)
 
     for message in admin_messages:
-        messages.append(
+        transformed_messages.append(
             {"message": message.message, "tags": [message.tags], "show": False}
         )
 
@@ -143,7 +152,7 @@ def action(request):
     else:
         response_dict = {
             **filter_and_convert(ThingAdmin(Thing, AdminSite()), request),
-            "messages": messages,
+            "messages": transformed_messages,
         }
         return HttpResponse(json.dumps(response_dict), content_type="application/json")
 
