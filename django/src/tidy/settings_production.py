@@ -18,4 +18,4 @@ DATABASES = {
     }
 }
 
-STATIC_URL = "https://static.tziallas.net/tidy"
+STATIC_URL = "https://static.tziallas.net/tidy/"
