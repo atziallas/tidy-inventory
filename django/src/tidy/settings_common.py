@@ -120,5 +120,8 @@ TIME_ZONE = 'Europe/Athens'
 # https://docs.djangoproject.com/en/2.0/howto/static-files/
 
 STATIC_URL = '/static/tidy/'
+STATIC_ROOT = '/code/static'
 
 LOG_DIR = '/logs/'
+
+DEMO_MODE = bool(os.environ['DEMO_MODE'])

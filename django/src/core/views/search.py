@@ -1,5 +1,6 @@
 import json
 
+from django.conf import settings
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.contrib.admin import AdminSite, ModelAdmin
@@ -73,23 +74,32 @@ class ThingAdmin(ModelAdmin):
     fetched_length.admin_order_field = "length"
     fetched_length.short_description = "Length"
 
-    def test(modeladmin, request, queryset):
-        modeladmin.message_user(request, "TADA!", messages.ERROR)
-
     generate_barcode = generate_barcode
     print_barcode = print_barcode
     unlabel = unlabel
 
+    def test(modeladmin, request, queryset):
+        modeladmin.message_user(request, "Sample response!", messages.SUCCESS)
+
     actions = [test, generate_barcode, print_barcode, unlabel]
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if settings.DEMO_MODE:
+            del actions["delete_selected"]
+            del actions["generate_barcode"]
+            del actions["unlabel"]
+        return actions
 
     print_barcode.short_description = "Print Barcode"
     generate_barcode.short_description = "Generate Barcode"
     unlabel.short_description = "Unlabel"
-
+    test.short_description = "Test Async Action"
 
 
 def health(request):
     return HttpResponse("OK", status=200)
+
 
 @login_required
 def index(request):
@@ -97,6 +107,7 @@ def index(request):
     state = create_entities_json(admin, request)
     template = loader.get_template("core/search.html")
     return HttpResponse(template.render({"initialState": json.dumps(state)}, request))
+
 
 @login_required
 def filter(request):

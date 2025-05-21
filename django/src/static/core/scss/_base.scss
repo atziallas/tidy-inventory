@@ -1,0 +1,67 @@
+@import "loader";
+
+$label-margin-bottom: 0.2rem;
+$table-accent-bg: #dadada;
+$list-group-item-padding-y: 0.3rem;
+$list-group-item-padding-x: 0.3rem;
+$table-cell-padding: 0.34rem 0.28rem 0.34rem 0.28rem !default;
+$table-cell-padding-sm: 0.2rem !default;
+$font-size-base: 1.15rem !default;
+
+
+
+.vertical-middle.table > tbody > tr > td {
+  vertical-align: middle;
+}
+
+.vertical-middle.table > thead > tr > th {
+  vertical-align: middle;
+}
+
+ul.messagelist {
+  padding: 0;
+  margin: 0;
+}
+
+ul.messagelist li {
+  display: block;
+  font-weight: 400;
+  font-size: 13px;
+  padding: 10px 10px 10px 37px;
+  margin: 0 0 10px 0;
+  background: #dfd url(../images/icon-yes.svg) 14px 12px no-repeat;
+  background-size: 16px auto;
+  color: #333;
+  -webkit-border-radius: 7px;
+}
+
+ul.messagelist li.warning {
+  background: #ffc url(../images/icon-alert.svg) 14px 14px no-repeat;
+  background-size: 14px auto;
+}
+
+ul.messagelist li.error {
+  background: #ffcbcb url(../images/icon-no.svg) 14px 12px no-repeat;
+  background-size: 16px auto;
+}
+
+.fadeOut {
+  opacity: 0;
+}
+
+.fadeIn {
+  opacity: 1;
+}
+
+.fade {
+  transition: opacity 1.5s;
+}
+
+.searchTable {
+  word-break: break-word;
+}
+
+.searchTable th {
+  word-break: keep-all;
+}
+

@@ -6,6 +6,7 @@ from django.contrib.admin.widgets import AutocompleteSelect
 from django.db.models import Case, When, Value, FloatField, Exists, Subquery, OuterRef
 from django.db.models.functions import Cast
 from django.templatetags.static import static
+from django.conf import settings
 
 from lib.barcode_admin_actions import generate_barcode, print_barcode, unlabel
 from lib.custom import MultipleRelatedOnlyFieldListFilter
@@ -180,6 +181,20 @@ class ThingAdmin(admin.ModelAdmin):
         )
 
     actions = [generate_barcode, print_barcode, unlabel]
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if settings.DEMO_MODE:
+            return [print_barcode]
+        else:
+            return [generate_barcode, print_barcode, unlabel]
+            
+
+            if "delete_selected" in actions:
+                del actions["delete_selected"]
+        return actions
+    
+    
     print_barcode.short_description = "Print Barcode"
     generate_barcode.short_description = "Generate Barcode"
     unlabel.short_description = "Unlabel"

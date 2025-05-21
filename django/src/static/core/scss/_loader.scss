@@ -1,0 +1,185 @@
+/*LOADER BOX*/
+.loader {
+  height: 150px;
+  width: 200px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #a0a0a0;
+  position: relative;
+  z-index: 1000;
+}
+
+.loader span {
+  font-size: 12px;
+  position: absolute;
+  bottom: 16px;
+}
+
+// @media only screen and (min-width: 861px) {
+//   .row:nth-child(odd) .loader:nth-child(odd),
+//   .row:nth-child(even) .loader:nth-child(even) {
+//     background: #1e1e1e;
+//   }
+
+//   .row:nth-child(odd) .loader:nth-child(even),
+//   .row:nth-child(even) .loader:nth-child(odd) {
+//     background: #2a2a2a;
+//   }
+// }
+
+// @media only screen and (max-width: 860px) {
+//   .row .loader:first-child,
+//   .row .loader:last-child {
+//     background: #2a2a2a;
+//   }
+
+//   .row .loader {
+//     background: #1e1e1e;
+//   }
+// }
+
+// @media only screen and (max-width: 460px) {
+//   .row .loader:nth-child(odd) {
+//     background: #2a2a2a;
+//   }
+//   .row .loader:nth-child(even) {
+//     background: #1e1e1e;
+//   }
+// }
+
+/*** LOADERS ***/
+
+$dotColor: #ffda7c;
+
+/* COMMON ANIMATIONS */
+@keyframes spinBasic {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes spinBasicReverse {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg);
+    }
+}
+
+@keyframes rotateWithBoost {
+    0% {
+        transform: rotate(0deg);
+    }
+    60% {
+        transform: rotate(180deg);
+    }
+    90%,
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+
+@keyframes loader6dot1 {
+  0% {
+    fill: #3a3a3a;
+    transform: scale(1);
+  }
+  16% {
+    transform: scale(1.5);
+    fill: $dotColor;
+  }
+  70%,
+  100% {
+    transform: scale(1);
+    fill: #3a3a3a;
+  }
+}
+
+@keyframes loader6dot2 {
+  0%,
+  30% {
+    transform: scale(1);
+    fill: #3a3a3a;
+  }
+  47% {
+    transform: scale(1.5);
+    fill: $dotColor;
+  }
+  75%,
+  100% {
+    transform: scale(1);
+    fill: #3a3a3a;
+  }
+}
+
+@keyframes loader6dot3 {
+  0%,
+  47% {
+    transform: scale(1);
+    fill: #3a3a3a;
+  }
+  83% {
+    transform: scale(1.5);
+    fill: $dotColor;
+  }
+  100% {
+    transform: scale(1);
+    fill: #3a3a3a;
+  }
+}
+.loader6 svg {
+  overflow: visible;
+}
+
+.loader6 circle:first-of-type {
+  transform-origin: 5px center;
+  animation: loader6dot1 1.5s ease infinite;
+}
+.loader6 circle:nth-child(2) {
+  transform-origin: center;
+  animation: loader6dot2 1.5s ease infinite;
+}
+.loader6 circle:nth-child(3) {
+  transform-origin: 35px center;
+  animation: loader6dot3 1.5s ease infinite;
+}
+
+.loader6 {
+    position: absolute;
+    top: 200px;
+    //left: 50%;
+    width: 150px;
+    margin: 0 auto;
+    position: absolute;
+    left: 0;
+    right: 0;
+}
+
+.loader6.inline {
+  position: static;
+}
+
+.loading.loader6.inline  {
+  display: inline;
+}
+
+.loader {
+    display: none;
+}
+.loading .loader {
+    display: block;
+}
+
+.loaderModal {
+  opacity: 1;
+}
+
+.loading .loaderModal {
+    opacity: 0.3;
+}
