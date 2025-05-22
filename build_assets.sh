@@ -9,4 +9,3 @@ cp node/src/dist/* django/src/static/core/assets
 # when using separate static site deployment for all tziallas.net subdomains
 rm -rf ../tziallas.net-static/static/tidy
 cp -R django/src/static/ ../tziallas.net-static/static/tidy
-# cp -R django/src/core/static/ ../tziallas.net-static/static/tidy

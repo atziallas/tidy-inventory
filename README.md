@@ -1,15 +1,15 @@
 # tidy-inventory
 Try it out here: https://tidy-demo.tziallas.net/browse
 
-Organize your home inventory
+Organize your home inventory. Personally using it for most of my home stuff!
 
 Automates barcode generation and printing on cable label templates.
 
-You can scan barcodes with a barcode scanner or with your device's webcam.
+You can scan barcodes with a **barcode scanner** or with your **device's webcam**.
 
-Responsive web application built with Postgres, Django, React-Redux, Webpack and Bootstrap.
+Responsive web application built with **Postgres**, **Django**, **React-Redux**, **Webpack** and **Bootstrap**.
 
-Programmaticaly wraps Django Admin python APIs to expose them in a new REST API that is more suited for use with a React-Redux frontend.
+Programmaticaly wraps Django Admin Python APIs to expose them in a new REST API that is more suited for use with a React-Redux frontend.
 
 
 
@@ -27,6 +27,13 @@ inside base folder (next to docker-compose.yml)
 When the installation finisehs visit ```127.0.0.1:8000```. Enjoy!
 
 <b>Note</b>: if you are running docker on windows, make sure /django/src/wait.sh file has linux style endings (LF, not CRLF)
+
+## 🚀 Deployment
+Contains a Kamal configuration in ```config/deploy.yml``` for seamless Dockerized deployment!
+
+Check https://kamal-deploy.org/
+
+Contains another ```config/deploy.yml``` inside ```nginx-static``` folder for a separate ***nginx*** deployment that serves static files. Also Check `build_assets.sh`.
 
 ## 📖 Documentation
 Runtime is split into 3 containers (and corresponding folders):

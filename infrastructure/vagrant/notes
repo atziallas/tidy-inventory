@@ -1,8 +1,0 @@
-how to init vagrant file for ubuntu jammy jellfish:
-vagrant init generic/ubuntu2204
-
-how to get it up:
-vagrant up
-
-
-/usr/local/bin/VBoxManage showvminfo 1fc451e0-0bdc-4317-81c2-51a705955626 --machinereadable
