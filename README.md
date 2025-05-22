@@ -20,7 +20,7 @@ inside base folder (next to docker-compose.yml)
 
 When the installation finisehs visit ```127.0.0.1:8000```. Enjoy!
 
-<b>Note</b>: if you are running docker on windows, make sure /django/src/start.sh file has linux style endings (LF, not CRLF)
+<b>Note</b>: if you are running docker on windows, make sure /django/src/wait.sh file has linux style endings (LF, not CRLF)
 
 ## 📖 Documentation
 Runtime is split into 3 containers (split into corresponding folders):

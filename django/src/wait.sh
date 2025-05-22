@@ -1,9 +1,5 @@
 #!/bin/sh
 
-# get the ip of the host to be used in django configuration
-# (in our case it is the docker bridge)
-export HOST_IP=$(ip route | awk '/default/ { print $3 }')
-
 # wait for the database to start before starting django development server
 status=1
 until [ $status -eq 0 ]

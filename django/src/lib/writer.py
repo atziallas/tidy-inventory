@@ -245,7 +245,8 @@ class ImageWriter(BaseWriter):
 
     def _paint_text(self, xpos, ypos):
         font = ImageFont.truetype(FONT, self.font_size * 2)
-        width, height = font.getsize(self.text)
+        # width, height = font.getsize(self.text)
+        unused1,unused2,width, height = font.getbbox(self.text)
         pos = (mm2px(xpos, self.dpi) - width // 2,
                mm2px(ypos, self.dpi) - height // 4)
         self._draw.text(pos, self.text, font=font, fill=self.foreground)
