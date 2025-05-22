@@ -124,4 +124,4 @@ STATIC_ROOT = '/code/static'
 
 LOG_DIR = '/logs/'
 
-DEMO_MODE = os.environ['DEMO_MODE'] == "True"
+DEMO_MODE = os.environ['DEMO_MODE'] == "True" or os.environ['DEMO_MODE'] == "true"

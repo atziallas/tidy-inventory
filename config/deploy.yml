@@ -51,7 +51,7 @@ env:
     DB_HOST: tidy-inventory-db
     DJANGO_CONFIGURATION: prod
     ALLOWED_HOST: tidy-demo.tziallas.net
-    DEMO_MODE: True
+    DEMO_MODE: true
   secret:
     - POSTGRES_USER
     - POSTGRES_PASSWORD

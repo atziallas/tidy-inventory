@@ -1,4 +1,6 @@
 # tidy-inventory
+Try it out here: https://tidy-demo.tziallas.net/browse
+
 Organize your home inventory
 
 Automates barcode generation and printing on cable label templates.
