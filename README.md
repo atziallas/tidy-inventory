@@ -33,7 +33,7 @@ Contains a Kamal configuration in ```config/deploy.yml``` for seamless Dockerize
 
 Check https://kamal-deploy.org/
 
-Contains another ```config/deploy.yml``` inside ```nginx-static``` folder for a separate ***nginx*** deployment that serves static files. Also Check `build_assets.sh`.
+Contains another ```config/deploy.yml``` inside ```nginx-static``` folder for a separate ***nginx*** deployment that serves static files. Also check `build_assets.sh`.
 
 ## 📖 Documentation
 Runtime is split into 3 containers (and corresponding folders):
