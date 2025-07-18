@@ -102,6 +102,8 @@ accessories:
       # - config/mysql/production.cnf:/etc/mysql/my.cnf
       # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
       - ./db/initdb_personal.sql:/docker-entrypoint-initdb.d/initdb_personal.sql
+    volumes:
+      - /home/tidy-inventory-db/backups:/home/backups
     directories:
       - postgres:/var/lib/postgresql/data/
   pgadmin:
