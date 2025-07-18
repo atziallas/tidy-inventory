@@ -48,7 +48,8 @@ builder:
 #
 env:
   clear:
-    DB_HOST: tidy-inventory-db
+    DB_HOST: tidy-demo-db-demo
+    DB_PORT: 5432
     DJANGO_CONFIGURATION: prod
     ALLOWED_HOST: tidy-demo.tziallas.net
     DEMO_MODE: true
@@ -89,28 +90,26 @@ ssh:
 # Use accessory services (secrets come from .kamal/secrets).
 #
 accessories:
-  db:
+  db-demo:
     image: postgres:12.6
     host: tziallas.net
-    port: "127.0.0.1:5432:5432"
+    port: "127.0.0.1:5431:5432"
     env:
       secret:
         - POSTGRES_USER
         - POSTGRES_PASSWORD
     files:
-      # - config/mysql/production.cnf:/etc/mysql/my.cnf
-      # - db/production.sql:/docker-entrypoint-initdb.d/setup.sql
       - ./db/initdb_personal.sql:/docker-entrypoint-initdb.d/initdb_personal.sql
     directories:
       - postgres:/var/lib/postgresql/data/
-  pgadmin:
-    image: dpage/pgadmin4:2024-04-29-1
-    host: tziallas.net
-    port: "8181:8181"
-    env:
-      secret:
-        - PGADMIN_DEFAULT_EMAIL
-        - PGADMIN_DEFAULT_PASSWORD
+  # pgadmin:
+  #   image: dpage/pgadmin4:2024-04-29-1
+  #   host: tziallas.net
+  #   port: "8181:8181"
+  #   env:
+  #     secret:
+  #       - PGADMIN_DEFAULT_EMAIL
+  #       - PGADMIN_DEFAULT_PASSWORD
 
     
 #   redis:

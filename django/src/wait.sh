@@ -4,8 +4,8 @@
 status=1
 until [ $status -eq 0 ]
 do
-	echo "Checking if database is up"
-	nc -zvw1 $DB_HOST 5432
+	echo "Checking if database is up: $DB_HOST:$DB_PORT"
+	nc -zvw1 $DB_HOST $DB_PORT
 	status=${?}
 	sleep 1s
 done

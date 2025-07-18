@@ -49,6 +49,7 @@ builder:
 env:
   clear:
     DB_HOST: tidy-inventory-db
+    DB_PORT: 5432
     DJANGO_CONFIGURATION: prod
     ALLOWED_HOST: tidy.tziallas.net
     DEMO_MODE: false
