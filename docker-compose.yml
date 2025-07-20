@@ -13,6 +13,7 @@ services:
     environment:
       - DJANGO_CONFIGURATION=dev
       - DB_HOST=db
+      - DB_PORT=5432
       - DEMO_MODE=False
     depends_on:
       - db

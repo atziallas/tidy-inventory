@@ -182,22 +182,27 @@ class ThingAdmin(admin.ModelAdmin):
 
     actions = [generate_barcode, print_barcode, unlabel]
 
-    def get_actions(self, request):
-        actions = super().get_actions(request)
-        if settings.DEMO_MODE:
-            return [print_barcode]
-        else:
-            return [generate_barcode, print_barcode, unlabel]
-            
-
-            if "delete_selected" in actions:
-                del actions["delete_selected"]
-        return actions
-    
-    
     print_barcode.short_description = "Print Barcode"
     generate_barcode.short_description = "Generate Barcode"
     unlabel.short_description = "Unlabel"
+
+    def get_actions(self, request):
+        actions = super().get_actions(request)
+        if settings.DEMO_MODE:
+            del actions["generate_barcode"]
+            del actions["unlabel"]
+
+        # if settings.DEMO_MODE:
+        #     return [print_barcode]
+        # else:
+        #     return [generate_barcode, print_barcode, unlabel]
+            
+
+        #     if "delete_selected" in actions:
+        #         del actions["delete_selected"]
+        return actions
+    
+    
 
 
 admin.site.register(Type, TypeAdmin)
