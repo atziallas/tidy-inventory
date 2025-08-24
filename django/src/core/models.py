@@ -84,7 +84,10 @@ class Sublocation(models.Model):
     location = models.ForeignKey(Location, on_delete=models.PROTECT)
 
     def __str__(self):
-        return self.name
+        name = self.name
+        if (self.location is not None):
+            name = name + " (" + self.location.name + ")"
+        return name
 
 
 class Thing(models.Model):
