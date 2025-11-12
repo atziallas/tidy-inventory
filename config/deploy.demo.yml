@@ -102,19 +102,3 @@ accessories:
       - ./db/initdb_personal.sql:/docker-entrypoint-initdb.d/initdb_personal.sql
     directories:
       - postgres:/var/lib/postgresql/data/
-  # pgadmin:
-  #   image: dpage/pgadmin4:2024-04-29-1
-  #   host: tziallas.net
-  #   port: "8181:8181"
-  #   env:
-  #     secret:
-  #       - PGADMIN_DEFAULT_EMAIL
-  #       - PGADMIN_DEFAULT_PASSWORD
-
-    
-#   redis:
-#     image: valkey/valkey:8
-#     host: 192.168.0.2
-#     port: 6379
-#     directories:
-#       - data:/data
