@@ -2,10 +2,12 @@
 
 # Get current date in dd-MM-yyyy format
 current_date=$(date '+%d-%m-%Y')
-echo "Current date: $current_date"
+
+# Get the latest annotated git tag
+version=$(git describe --abbrev=0 --tags)
 
 # Build the command - wrap with sh -c and quote the entire thing for kamal
-cmd="sh -c \"pg_dump -Fc -U tidy tidy > /home/backups/${current_date}.dump\""
+cmd="sh -c \"pg_dump -Fc -U tidy tidy > /home/backups/${current_date}-${version}.dump\""
 echo "Running command into db container: $cmd"
 
 # Pass it to kamal
