@@ -21,6 +21,7 @@ pg_restore -d tidy -U tidy -W --clean --create /backups/01-05-2024.dump
 pg_restore -d tidy -U tidy -W --clean --if-exists /backups/01-05-2024.dump
 
 THIS WORKED:
-pg_restore -d tidy -U tidy -W --clean /backups/01-05-2024.dump
+dotenvx run -- kamal accessory exec db bash -i --reuse
+pg_restore -d tidy -U tidy -W --clean /home/backups/18-06-2025.dump
 
 pg_restore -d tidy -U tidy -W /backups/01-05-2024.dump

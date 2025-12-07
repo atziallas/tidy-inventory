@@ -17,5 +17,5 @@ dotenvx run -- kamal accessory exec db --reuse -- "$cmd"
 
 # Copy the dump file from remote to local
 echo "Copying dump file from remote host..."
-scp tziallas:/home/tidy-inventory-db/backups/${filename}.dump ./db/backups/
+scp tziallas:/home/tidy-inventory-db/backups/${filename}.dump ../tidy-db-backups/prod
 
