@@ -110,13 +110,13 @@ class Thing(models.Model):
         if self.designated_location is None:
             return ""
         else:
-            return f"{none_to_underscore(self.designated_location)} ({none_to_underscore(self.designated_sublocation)})"
+            return f"{none_to_underscore(self.designated_location)} ({none_to_underscore(getattr(self.designated_sublocation, 'name', None))})"
 
     def placed(self):
         if self.location is None:
             return ""
         else:
-            return f"{none_to_underscore(self.location)} ({none_to_underscore(self.sublocation)})"
+            return f"{none_to_underscore(self.location)} ({none_to_underscore(getattr(self.sublocation, 'name', None))})"
 
     def length(self):
         try:
