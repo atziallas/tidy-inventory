@@ -3,7 +3,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.contrib.admin.widgets import AutocompleteSelect
-from django.db.models import Case, When, Value, FloatField, Exists, Subquery, OuterRef
+from django.db.models import Case, When, Value, FloatField, Exists, Subquery, OuterRef, Q
 from django.db.models.functions import Cast
 from django.templatetags.static import static
 from django.conf import settings
@@ -39,7 +39,9 @@ class SublocationAdmin(admin.ModelAdmin):
         else:
             querySet = Sublocation.objects.filter(location__id=location_id)
         if search_term != "":
-            querySet = querySet.filter(name__icontains=search_term), False
+            querySet = querySet.filter(
+                Q(name__icontains=search_term) | Q(location__name__icontains=search_term)
+            )
         return querySet, False
 
 
@@ -53,7 +55,9 @@ class SubTypeAdmin(admin.ModelAdmin):
         else:
             querySet = SubType.objects.filter(type__id=type_id)
         if search_term != "":
-            querySet = querySet.filter(name__icontains=search_term), False
+            querySet = querySet.filter(
+                Q(name__icontains=search_term) | Q(type__name__icontains=search_term)
+            )
         return querySet, False
 
 
