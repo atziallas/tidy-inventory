@@ -24,7 +24,7 @@ The application is dockerized so after you install Docker you can run:
 ```docker-compose up``` 
 inside base folder (next to docker-compose.yml)
 
-When the installation finisehs visit ```127.0.0.1:8000```. Enjoy!
+When the installation finishes visit ```127.0.0.1:8000```. Enjoy!
 
 <b>Note</b>: if you are running docker on windows, make sure /django/src/wait.sh file has linux style endings (LF, not CRLF)
 
